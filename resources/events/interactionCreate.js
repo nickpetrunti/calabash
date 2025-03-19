@@ -5,7 +5,7 @@ import database from "../../database.js";
 
 const name = Events.InteractionCreate
 async function execute(interaction) {
-    if (interaction.isChatInputCommand()) {
+    if (interaction.isChatInputCommand() || interaction.isUserContextMenuCommand()) {
         //# Chat Input Interaction
         const command = interaction.client.commands.get(interaction.commandName);
 
