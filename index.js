@@ -7,7 +7,7 @@ client.commands = new Collection();
 
 client.on(Events.ClientReady, activeClient => {
    console.log(`Successfully authenticated as ${activeClient.user.tag}.`)
-//   client.guilds.cache.get("883838743172218891").channels.cache.get("1297365478347378769").send({content: "im awake"})
+   client.guilds.cache.get("883838743172218891").channels.cache.get("1297365478347378769").send({content: "im awake"})
 });
 
 const commandFiles = fs.readdirSync("./resources/commands/").filter(file => file.endsWith('.js'), {withFileTypes: true});
