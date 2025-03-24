@@ -33,50 +33,7 @@ async function execute(interaction) {
         }
         //# End Chat input Interaction
     } else if(interaction.isModalSubmit()) {
-        //# Modal Input Submission
-        if (interaction.customId == "warningModal") {
-            //# Warning
-
-            const target = interaction.fields.getTextInputValue("warningModalTarget");
-            const rule = interaction.fields.getTextInputValue("warningModalRule");
-            const explanation = interaction.fields.getTextInputValue("warningModalExplanation");
-            const evidence = interaction.fields.getTextInputValue("warningModalEvidence");
-            const timestamp = Math.floor(Date.now() / 1000);
-            const moderatorID = interaction.member.user.id;
-
-            const db = await database.fetchDatabase("warnings")
-
-            let warnID = await db.findOne({title: "warnID"})
-            warnID = warnID.value;
-            warnID+=1
-            await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
-
-            await db.insertOne({
-                target: target,
-                rule: rule,
-                explanation: explanation,
-                evidence: evidence,
-                timestamp: timestamp,
-                moderator: moderatorID,
-                id: warnID
-            })
-
-            await interaction.reply({content: "Warning successfuly submitted.", flags: MessageFlags.Ephemeral});
-
-            const logEmbed = new EmbedBuilder()
-                .setColor(0xFF804A)
-                .setTitle(`Warning [${warnID}]`)
-                .setDescription(`${bold("Offender")}: <@${target}>\n${bold("Reason")}: ${explanation}\n${bold("Evidence")}: ${hyperlink("Click Here", evidence)}`)
-                .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
-                .setTimestamp()
-
-            try {
-                interaction.client.guilds.cache.get("883838743172218891").channels.cache.get(config.warnLogsID).send({embeds: [logEmbed]})
-            } catch (e) {console.error(e)}
-
-
-        }
-        //# End Modal Input Submission
+       // ignore for now?
     }
 
 

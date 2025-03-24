@@ -32,7 +32,6 @@ async function execute(interaction) {
     }
     const warnings = db.find({"target": target.id})
 
-
     const embed = new EmbedBuilder()
         .setColor(0xA7DB7D)
         .setTitle(`Warnings: ${target.tag} (${target.id})`)
@@ -40,11 +39,20 @@ async function execute(interaction) {
     for await (const warn of warnings) {
         const timestamp = new Date(warn.timestamp * 1000);
 
-        embed.addFields({
-            name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
-            value: `Moderator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
-            inline: true
-        })
+        if (warn.type === "warning") {
+            embed.addFields({
+                name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                value: `Moderator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
+                inline: true
+            })
+        } else if(warn.type === "drown") {
+            embed.addFields({
+                name: `[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
+                inline: true
+            })
+        }
+
     }
 
     try {

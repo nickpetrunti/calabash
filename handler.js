@@ -27,13 +27,5 @@ const rest = new REST().setToken(config.Token);
         } catch (error) {
             console.error(error);
         }
-
-        try {
-            const cmd = await import(`./resources/commands/calabash.js`)
-            const cmd2 = await import(`./resources/commands/pomar.js`)
-            rest.put(Routes.applicationGuildCommands( config.clientID, "883838743172218891"), {body: [cmd.data.toJSON(), cmd2.data.toJSON()]});
-        } catch (error) {
-            console.error(error);
-        }
     })();
 })();
