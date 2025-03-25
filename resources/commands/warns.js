@@ -40,11 +40,19 @@ async function execute(interaction) {
         const timestamp = new Date(warn.timestamp * 1000);
 
         if (warn.type === "warning") {
-            embed.addFields({
-                name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
-                value: `Moderator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
-                inline: true
-            })
+            if (warn.rule === "N/A" && warn.evidence === "N/A") {
+                embed.addFields({
+                    name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                    value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation} `,
+                    inline: true
+                })
+            } else {
+                embed.addFields({
+                    name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                    value: `Moderator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
+                    inline: true
+                })
+            }
         } else if(warn.type === "drown") {
             embed.addFields({
                 name: `[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,

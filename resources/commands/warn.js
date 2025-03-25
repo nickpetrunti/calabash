@@ -60,7 +60,7 @@ async function execute(interaction) {
         await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
 
         await db.insertOne({
-            target: target,
+            target: target.id,
             rule: rule,
             explanation: explanation,
             evidence: evidence,
@@ -73,7 +73,7 @@ async function execute(interaction) {
         await result.reply({content: "Warning successfuly submitted.", flags: MessageFlags.Ephemeral});
 
         const logEmbed = new EmbedBuilder()
-            .setColor(0xFF804A)
+            .setColor(0xFFDD33)
             .setTitle(`Warning [${warnID}]`)
             .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: ${explanation}\n${bold("Evidence")}: ${hyperlink("Click Here", evidence)}`)
             .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})

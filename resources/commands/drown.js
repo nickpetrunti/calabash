@@ -37,7 +37,7 @@ async function execute(interaction) {
     const duration = interaction.options.getString("duration").toLowerCase();
 
     const logEmbed = new EmbedBuilder()
-        .setColor(0x005922)
+        .setColor(0x66FFA6)
         .setTitle(`Drown [${target.id}]`)
         .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: ${reason}`)
         .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
