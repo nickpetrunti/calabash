@@ -8,7 +8,8 @@ import {
 import database from "../../database.js";
 import config from "../../config.json" with {type: "json"};
 import {schedule} from "../modules/schedule.js";
-const inDev = true
+const inDev = false
+const commandType = "moderation";
 
 const data = new SlashCommandBuilder()
     .setName("drown")
@@ -90,4 +91,4 @@ async function execute(interaction) {
 
 }
 
-export {data, execute, inDev}
+export {data, execute, inDev, commandType}

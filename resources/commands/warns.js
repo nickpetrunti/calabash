@@ -11,12 +11,12 @@ import {
     hyperlink
 } from "discord.js";
 import database from "../../database.js";
-const inDev = true
+import config from "../../config.json" with {type: "json"};
+const inDev = false
 
 const data = new SlashCommandBuilder()
     .setName("warns")
     .setDescription("Lists a users warnings")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addUserOption(option =>
         option
             .setName("user")
@@ -25,11 +25,18 @@ const data = new SlashCommandBuilder()
 async function execute(interaction) {
     const db = await database.fetchDatabase("warnings")
     let target = interaction.options.get("user");
+
     if (target) {
         target = target.user;
     } else {
         target = interaction.member.user;
     }
+
+    if(target.id !== interaction.member.user.id && !interaction.member.roles.cache.get(config.moderatorRoleID)) {
+        await interaction.reply({content:"You lack the permissions to view this users warnings.",flags:[MessageFlags.Ephemeral]})
+        return
+    }
+
     const warnings = db.find({"target": target.id})
 
     const embed = new EmbedBuilder()

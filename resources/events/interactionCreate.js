@@ -1,4 +1,4 @@
-import {Events, Message, MessageFlags, EmbedBuilder, hyperlink, bold } from "discord.js"
+import {Events, Message, MessageFlags, PermissionFlagsBits, EmbedBuilder, hyperlink, bold } from "discord.js"
 import {MongoClient} from "mongodb";
 import config from '../../config.json' with {type: 'json'}
 import database from "../../database.js";
@@ -20,6 +20,14 @@ async function execute(interaction) {
                 return;
             }
         }
+
+        if (command.commandType && command.commandType === "moderation") {
+            if(!interaction.member.roles.cache.get(config.moderatorRoleID) && !interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+                await interaction.reply({content: "You lack the permissions to execute this command.", flags: MessageFlags.Ephemeral})
+                return
+            }
+        }
+
 
         try {
             await command.execute(interaction);
