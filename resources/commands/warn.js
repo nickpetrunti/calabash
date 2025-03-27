@@ -46,55 +46,57 @@ async function execute(interaction) {
     const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}`;
     await interaction.showModal(modal);
 
-    interaction.awaitModalSubmit({filter, time:90_000}).then(async(result) => {
-        console.log(chalk.bgWhiteBright.black.bold(`${interaction.member.user.tag} - ${result.member.user.tag}`))
-        const rule = result.fields.getTextInputValue("warningModalRule");
-        const explanation = result.fields.getTextInputValue("warningModalExplanation").substring(0,500);
-        const evidence = result.fields.getTextInputValue("warningModalEvidence");
-        const timestamp = Math.floor(Date.now() / 1000);
-        const moderatorID = result.member.user.id;
+    interaction.awaitModalSubmit({filter, time:90_000})
+        .then(async(result) => {
+            console.log(chalk.bgWhiteBright.black.bold(`${interaction.member.user.tag} - ${result.member.user.tag}`))
+            const rule = result.fields.getTextInputValue("warningModalRule");
+            const explanation = result.fields.getTextInputValue("warningModalExplanation").substring(0,500);
+            const evidence = result.fields.getTextInputValue("warningModalEvidence");
+            const timestamp = Math.floor(Date.now() / 1000);
+            const moderatorID = result.member.user.id;
 
-        const db = await database.fetchDatabase("warnings")
+            const db = await database.fetchDatabase("warnings")
 
-        let warnID = await db.findOne({title: "warnID"})
-        warnID = warnID.value;
-        warnID+=1
-        await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
+            let warnID = await db.findOne({title: "warnID"})
+            warnID = warnID.value;
+            warnID+=1
+            await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
 
-        await db.insertOne({
-            target: target.id,
-            rule: rule,
-            explanation: explanation,
-            evidence: evidence,
-            timestamp: timestamp,
-            moderator: moderatorID,
-            id: warnID,
-            type: "warning"
+            await db.insertOne({
+                target: target.id,
+                rule: rule,
+                explanation: explanation,
+                evidence: evidence,
+                timestamp: timestamp,
+                moderator: moderatorID,
+                id: warnID,
+                type: "warning"
+            })
+
+            try {
+                await result.reply({content: "Warning successfully submitted.", flags: MessageFlags.Ephemeral});
+            } catch(e) {}
+
+            const logEmbed = new EmbedBuilder()
+                .setColor(0xFFDD33)
+                .setTitle(`Warning [${warnID}]`)
+                .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}\n${bold("Evidence")}: ${hyperlink("Click Here", evidence)}`)
+                .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
+                .setTimestamp()
+
+            try {
+                interaction.guild.channels.cache.get(config.warnLogsID).send({embeds: [logEmbed]})
+            } catch (e) {}
+
+            const notifEmbed = new EmbedBuilder()
+                .setColor(0xFFDD33)
+                .setTitle(`You have been warned in Deepwoken Info`)
+                .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}`)
+                .setTimestamp()
+            target.send({embeds:[notifEmbed]})
+                .catch()
         })
-
-        try {
-            await result.reply({content: "Warning successfully submitted.", flags: MessageFlags.Ephemeral});
-        } catch(e) {}
-
-        const logEmbed = new EmbedBuilder()
-            .setColor(0xFFDD33)
-            .setTitle(`Warning [${warnID}]`)
-            .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}\n${bold("Evidence")}: ${hyperlink("Click Here", evidence)}`)
-            .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
-            .setTimestamp()
-
-        try {
-            interaction.guild.channels.cache.get(config.warnLogsID).send({embeds: [logEmbed]})
-        } catch (e) {}
-
-        const notifEmbed = new EmbedBuilder()
-            .setColor(0xFFDD33)
-            .setTitle(`You have been warned in Deepwoken Info`)
-            .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}`)
-            .setTimestamp()
-        target.send({embeds:[notifEmbed]})
-            .catch()
-    }).catch()
+        .catch()
 
 }
 
