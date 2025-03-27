@@ -49,7 +49,7 @@ async function execute(interaction) {
 
     interaction.awaitModalSubmit({filter, time:60_000}).then(async(result) => {
         const rule = result.fields.getTextInputValue("warningModalRule");
-        const explanation = result.fields.getTextInputValue("warningModalExplanation");
+        const explanation = result.fields.getTextInputValue("warningModalExplanation").substring(0,500);
         const evidence = result.fields.getTextInputValue("warningModalEvidence");
         const timestamp = Math.floor(Date.now() / 1000);
         const moderatorID = result.member.user.id;
@@ -74,9 +74,7 @@ async function execute(interaction) {
 
         try {
             await result.reply({content: "Warning successfuly submitted.", flags: MessageFlags.Ephemeral});
-        } catch(e) {
-            console.error(e)
-        }
+        } catch(e) {}
 
         const logEmbed = new EmbedBuilder()
             .setColor(0xFFDD33)
