@@ -8,6 +8,7 @@ import {
 import database from "../../database.js";
 import config from "../../config.json" with {type: "json"};
 import {schedule} from "../modules/schedule.js";
+import chalk from "chalk";
 const inDev = false
 const commandType = "moderation";
 
@@ -44,6 +45,8 @@ async function execute(interaction) {
         .setTimestamp()
 
      const targetMember = interaction.guild.members.cache.get(target.id);
+
+    console.log(chalk.rgb(97, 255, 139).bold(`DROWN: `)+chalk.underline(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline(target.tag))
 
      if(targetMember.roles.cache.find(role => role.name === "drowned")) {
          await interaction.reply({content: `<@${target.id}> is already drowned.`, flags:[MessageFlags.Ephemeral]})
