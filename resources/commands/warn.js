@@ -41,13 +41,13 @@ async function execute(interaction) {
     const rowThree = new ActionRowBuilder().addComponents(evidenceInput);
 
     modal.addComponents(rowOne, rowTwo, rowThree);
-
+    const target = interaction.options.getUser("user")
     await interaction.showModal(modal);
 
     const filter = (interaction) => interaction.customId === `warningModal-${interaction.member.user.id}`;
 
     interaction.awaitModalSubmit({filter, time:60_000}).then(async(result) => {
-        const target = interaction.options.getUser("user")
+
         const rule = result.fields.getTextInputValue("warningModalRule");
         const explanation = result.fields.getTextInputValue("warningModalExplanation");
         const evidence = result.fields.getTextInputValue("warningModalEvidence");
@@ -72,7 +72,11 @@ async function execute(interaction) {
             type: "warning"
         })
 
-        await result.reply({content: "Warning successfuly submitted.", flags: MessageFlags.Ephemeral});
+        try {
+            await result.reply({content: "Warning successfuly submitted.", flags: MessageFlags.Ephemeral});
+        } catch(e) {
+            console.error(e)
+        }
 
         const logEmbed = new EmbedBuilder()
             .setColor(0xFFDD33)
