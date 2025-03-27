@@ -14,7 +14,6 @@ const commandType = "moderation";
 const data = new SlashCommandBuilder()
     .setName("drown")
     .setDescription("Drowns a user")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addUserOption(option =>
         option
             .setName("target")
