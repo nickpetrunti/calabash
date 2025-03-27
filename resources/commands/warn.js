@@ -42,12 +42,12 @@ async function execute(interaction) {
 
     modal.addComponents(rowOne, rowTwo, rowThree);
     const target = interaction.options.getUser("user")
+    const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}`;
     await interaction.showModal(modal);
 
-    const filter = (interaction) => interaction.customId === `warningModal-${interaction.member.user.id}`;
+
 
     interaction.awaitModalSubmit({filter, time:60_000}).then(async(result) => {
-
         const rule = result.fields.getTextInputValue("warningModalRule");
         const explanation = result.fields.getTextInputValue("warningModalExplanation");
         const evidence = result.fields.getTextInputValue("warningModalEvidence");
