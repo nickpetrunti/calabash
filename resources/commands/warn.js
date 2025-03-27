@@ -47,7 +47,7 @@ async function execute(interaction) {
     await interaction.showModal(modal);
 
     interaction.awaitModalSubmit({filter, time:30_000}).then(async(result) => {
-        console.log(chalk.bgWhite.green.bold(`${interaction.member.user.tag} - ${result.member.user.tag}`))
+        console.log(chalk.bgWhiteBright.black.bold(`${interaction.member.user.tag} - ${result.member.user.tag}`))
         const rule = result.fields.getTextInputValue("warningModalRule");
         const explanation = result.fields.getTextInputValue("warningModalExplanation").substring(0,500);
         const evidence = result.fields.getTextInputValue("warningModalEvidence");
