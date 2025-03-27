@@ -3,7 +3,7 @@ import database from "../../database.js";
 import config from "../../config.json" with {type:"json"};
 const inDev = false
 const commandType = "moderation";
-
+//
 const data = new SlashCommandBuilder()
     .setName("warn")
     .setDescription("Warns a user for a rule infraction")
