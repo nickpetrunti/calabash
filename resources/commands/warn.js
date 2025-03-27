@@ -96,7 +96,7 @@ async function execute(interaction) {
             target.send({embeds:[notifEmbed]})
                 .catch()
         })
-        .catch(e => console.error(e));
+        .catch(e => {});
 
 }
 
