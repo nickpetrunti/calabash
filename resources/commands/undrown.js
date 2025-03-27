@@ -33,7 +33,7 @@ async function execute(interaction) {
 
      try {
          targetMember.roles.remove(interaction.guild.roles.cache.find(role => role.name === "drowned"))
-         await interaction.reply({content: `Successfully udrowned <@${target.id}> `, flags:[MessageFlags.Ephemeral]})
+         await interaction.reply({content: `Successfully undrowned <@${target.id}> `, flags:[MessageFlags.Ephemeral]})
      } catch (e) {
          console.error(e)
      }
