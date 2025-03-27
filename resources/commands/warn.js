@@ -94,9 +94,7 @@ async function execute(interaction) {
             .setTimestamp()
         target.send({embeds:[notifEmbed]})
             .catch()
-    }).catch(async()=>{
-        await interaction.reply("Sorry")
-    })
+    }).catch()
 
 }
 
