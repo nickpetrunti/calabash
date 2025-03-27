@@ -39,7 +39,7 @@ async function execute(interaction) {
     const logEmbed = new EmbedBuilder()
         .setColor(0x66FFA6)
         .setTitle(`Drown [${target.id}]`)
-        .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: ${reason}`)
+        .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: ${reason}\n${bold("Duration")}: ${duration}`)
         .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
         .setTimestamp()
 
