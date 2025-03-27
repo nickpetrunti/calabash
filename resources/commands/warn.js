@@ -87,7 +87,7 @@ async function execute(interaction) {
 
         try {
             interaction.guild.channels.cache.get(config.warnLogsID).send({embeds: [logEmbed]})
-        } catch (e) {console.error(e)}
+        } catch (e) {}
 
         const notifEmbed = new EmbedBuilder()
             .setColor(0xFFDD33)
@@ -97,7 +97,7 @@ async function execute(interaction) {
 
         try {
             target.send({embeds:[notifEmbed]})
-        } catch(e) {console.error(e)}
+        } catch(e) {}
     })
 
 }

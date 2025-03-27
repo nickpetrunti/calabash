@@ -42,32 +42,51 @@ async function execute(interaction) {
                 if(!raw.endsWith("}")) {raw = raw+"}"}
                 const warn = JSONbig.parse(raw)
                     try {
-                        if (!raw.action === "warn") {continue}
-                        let warnID = await db.findOne({title: "warnID"})
-                        warnID = warnID.value;
-                        warnID+=1
-                        await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
+                        if (raw.action === "warn") {
+                            let warnID = await db.findOne({title: "warnID"})
+                            warnID = warnID.value;
+                            warnID+=1
+                            await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
 
 
-                        const warningsDB = await database.fetchDatabase("warnings")
+                            const warningsDB = await database.fetchDatabase("warnings")
 
-                        let timestampData = warn.timestamp.split("T")[0].split("-")
-                        if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
-                        const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
+                            let timestampData = warn.timestamp.split("T")[0].split("-")
+                            if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
+                            const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
 
-                        let targetId = warn.offender_id
+                            let targetId = warn.offender_id
 
-                        let modId = warn.moderator_id
-                        await warningsDB.insertOne({
-                            target: targetId.toString(),
-                            rule: "N/A",
-                            explanation: warn.reason,
-                            evidence: "N/A",
-                            timestamp: timestamp,
-                            moderator: modId.toString(),
-                            id: warnID,
-                            type: "warning"
-                        })
+                            let modId = warn.moderator_id
+                            await warningsDB.insertOne({
+                                target: targetId.toString(),
+                                rule: "N/A",
+                                explanation: warn.reason,
+                                evidence: "N/A",
+                                timestamp: timestamp,
+                                moderator: modId.toString(),
+                                id: warnID,
+                                type: "warning"
+                            })
+                        } else if(raw.action == "ban") {
+                            const warningsDB = await database.fetchDatabase("warnings")
+
+                            let timestampData = warn.timestamp.split("T")[0].split("-")
+                            if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
+                            const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
+
+                            let targetId = warn.offender_id
+
+                            let modId = warn.moderator_id
+                            await warningsDB.insertOne({
+                                target: targetId.toString(),
+                                explanation: warn.reason,
+                                timestamp: timestamp,
+                                moderator: modId.toString(),
+                                type: "ban"
+                            })
+                        }
+
                     } catch(e) {
                         console.error(e)
                     }
