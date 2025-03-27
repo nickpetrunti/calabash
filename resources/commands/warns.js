@@ -66,6 +66,12 @@ async function execute(interaction) {
                 value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
                 inline: true
             })
+        } else if(warn.type === "ban") {
+            embed.addFields({
+                name: `[BAN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
+                inline: true
+            })
         }
 
     }

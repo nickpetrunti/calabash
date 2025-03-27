@@ -15,8 +15,8 @@ export async function run(client) {
                 const member = guild.members.cache.get(schedule.target)
                 try {
                     await member.roles.remove(guild.roles.cache.find(role => role.name === schedule.role))
-                    await schedules.deleteOne({id: schedule.id})
-                } catch(e) {}
+                } catch(e) {await schedules.deleteOne({id: schedule.id})}
+                await schedules.deleteOne({id: schedule.id})
             }
         }
     }, 5000)

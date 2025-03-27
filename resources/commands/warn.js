@@ -33,7 +33,7 @@ async function execute(interaction) {
 
     const evidenceInput = new TextInputBuilder()
         .setCustomId("warningModalEvidence")
-        .setLabel("Evidence image link")
+        .setLabel("Evidence message link")
         .setStyle(TextInputStyle.Short)
 
     const rowOne = new ActionRowBuilder().addComponents(ruleInput);
@@ -88,7 +88,7 @@ async function execute(interaction) {
         const notifEmbed = new EmbedBuilder()
             .setColor(0xFFDD33)
             .setTitle(`You have been warned in Deepwoken Info`)
-            .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}\n${bold("Evidence")}: ${hyperlink("Click Here", evidence)}`)
+            .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}`)
             .setTimestamp()
 
         try {

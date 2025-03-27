@@ -85,6 +85,16 @@ async function execute(interaction) {
          await interaction.reply({content: `Successfully drowned <@${target.id}> `, flags:[MessageFlags.Ephemeral]})
          await interaction.guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]});
 
+         const notifEmbed = new EmbedBuilder()
+             .setColor(0x66FFA6)
+             .setTitle(`You have been drowned in Deepwoken Info`)
+             .setDescription(`${bold("Reason")}: ${reason}\n${bold("Duration")}: ${duration}`)
+             .setTimestamp()
+
+         try {
+             target.send({embeds:[notifEmbed]})
+         } catch(e) {console.error(e)}
+
      } catch (e) {
          console.error(e)
      }
