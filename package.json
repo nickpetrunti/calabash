@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node index.js"
   },
   "keywords": [],
   "author": "astrum",
@@ -11,6 +12,7 @@
   "description": "",
   "type": "module",
   "dependencies": {
+    "chalk": "^5.4.1",
     "discord.js": "^14.18.0",
     "dotenv": "^16.4.7",
     "json-bigint": "^1.0.0",
