@@ -45,8 +45,6 @@ async function execute(interaction) {
     const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}`;
     await interaction.showModal(modal);
 
-
-
     interaction.awaitModalSubmit({filter, time:60_000}).then(async(result) => {
         const rule = result.fields.getTextInputValue("warningModalRule");
         const explanation = result.fields.getTextInputValue("warningModalExplanation").substring(0,500);
@@ -92,10 +90,8 @@ async function execute(interaction) {
             .setTitle(`You have been warned in Deepwoken Info`)
             .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}`)
             .setTimestamp()
-
-        try {
-            target.send({embeds:[notifEmbed]})
-        } catch(e) {}
+        target.send({embeds:[notifEmbed]})
+            .catch()
     })
 
 }
