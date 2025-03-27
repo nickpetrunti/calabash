@@ -45,7 +45,7 @@ async function execute(interaction) {
     const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}`;
     await interaction.showModal(modal);
 
-    interaction.awaitModalSubmit({filter, time:60_000}).then(async(result) => {
+    interaction.awaitModalSubmit({filter, time:30_000}).then(async(result) => {
         const rule = result.fields.getTextInputValue("warningModalRule");
         const explanation = result.fields.getTextInputValue("warningModalExplanation").substring(0,500);
         const evidence = result.fields.getTextInputValue("warningModalEvidence");
@@ -71,7 +71,7 @@ async function execute(interaction) {
         })
 
         try {
-            await result.reply({content: "Warning successfuly submitted.", flags: MessageFlags.Ephemeral});
+            await result.reply({content: "Warning successfully submitted.", flags: MessageFlags.Ephemeral});
         } catch(e) {}
 
         const logEmbed = new EmbedBuilder()

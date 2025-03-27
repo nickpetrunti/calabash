@@ -92,8 +92,6 @@ async function execute(interaction) {
                     }
             }
 
-
-
             await modalSubmission.reply({content:`Successfully imported ${data.split("},").length} warnings from <@${target.id}>`, flags:[MessageFlags.Ephemeral]})
 
         })
