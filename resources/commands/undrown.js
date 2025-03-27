@@ -23,8 +23,6 @@ async function execute(interaction) {
 //    if(!interaction.member.roles.cache.has("1011510257232646164") && !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages, true)) return;
 
     const target = interaction.options.getUser("target");
-    const reason = interaction.options.getString("reason");
-    const duration = interaction.options.getString("duration").toLowerCase();
 
     const targetMember = interaction.guild.members.cache.get(target.id);
 
