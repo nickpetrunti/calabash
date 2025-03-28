@@ -7,15 +7,8 @@ const commandType = "moderation";
 const data = new SlashCommandBuilder()
     .setName("transfer")
     .setDescription("Transfer warns from Carl")
-    .addUserOption(option =>
-        option
-            .setName("target")
-            .setDescription("User to apply warnings to")
-            .setRequired(true))
 
 async function execute(interaction) {
-    const target = interaction.options.getUser("target");
-
     const modal = new ModalBuilder()
         .setCustomId(`transferModal-${interaction.member.user.id}`)
         .setTitle("Warning Transfer")
@@ -99,7 +92,7 @@ async function execute(interaction) {
                     }
             }
 
-            await modalSubmission.reply({content:`Successfully imported ${data.split("},").length} warnings from <@${target.id}>`, flags:[MessageFlags.Ephemeral]})
+            await modalSubmission.reply({content:`Successfully imported ${data.split("},").length} warnings from <@${targetId}>`, flags:[MessageFlags.Ephemeral]})
 
         })
         .catch(e=>{});
