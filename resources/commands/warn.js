@@ -94,9 +94,8 @@ async function execute(interaction) {
                 .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}`)
                 .setTimestamp()
 
-            try {
-                target.send({embeds:[notifEmbed]})
-            } catch(e) {}
+            target.send({embeds:[notifEmbed]})
+                .catch(e => {})
 
         })
         .catch(e => {});
