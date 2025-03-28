@@ -93,8 +93,11 @@ async function execute(interaction) {
                 .setTitle(`You have been warned in Deepwoken Info`)
                 .setDescription(`${bold("Rule")}: ${rule}\n${bold("Reason")}: ${explanation}`)
                 .setTimestamp()
-            target.send({embeds:[notifEmbed]})
-                .catch()
+
+            try {
+                target.send({embeds:[notifEmbed]})
+            } catch(e) {}
+
         })
         .catch(e => {});
 
