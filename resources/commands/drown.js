@@ -46,7 +46,7 @@ async function execute(interaction) {
 
      const targetMember = interaction.guild.members.cache.get(target.id);
 
-    console.log(chalk.rgb(97, 255, 139).bold(`DROWN: `)+chalk.underline(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline(target.tag))
+    console.log(chalk.rgb(97, 255, 139).bold(`DROWN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
 
      if(targetMember.roles.cache.find(role => role.name === "drowned")) {
          await interaction.reply({content: `<@${target.id}> is already drowned.`, flags:[MessageFlags.Ephemeral]})
