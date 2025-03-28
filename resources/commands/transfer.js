@@ -45,7 +45,7 @@ async function execute(interaction) {
                 try {
                     warn = JSONbig.parse(raw)
                 } catch {
-                    await interaction.reply({content: "Improper data format submitted.", flags:[MessageFlags.Error, MessageFlags.Ephemeral,]})
+                    await modalSubmission.reply({content: "Improper data format submitted.", flags:[MessageFlags.Error, MessageFlags.Ephemeral,]})
                 }
                     try {
                         if (raw.action === "warn") {
