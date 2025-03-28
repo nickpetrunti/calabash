@@ -79,7 +79,7 @@ async function speakabash(message) {
     });
 
     await fs.writeFileSync(
-        `resources/audio/${message.author.id}.mp3`,
+        `../audio/${message.author.id}.mp3`,
         Buffer.from(response.choices[0].message.audio.data, 'base64'),
         {encoding: "utf8"}
     )
