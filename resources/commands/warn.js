@@ -95,7 +95,7 @@ async function execute(interaction) {
                 .setTimestamp()
 
             target.send({embeds:[notifEmbed]})
-                .catch(e => {})
+                .catch(e => {console.log(chalk.redBright.bold("FAILURE TO NOTIFY"))})
 
         })
         .catch(e => {});
