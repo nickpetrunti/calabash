@@ -27,6 +27,11 @@ eventFiles.forEach(async(file) => {
    });
 })
 
+process.stdin.on('data', (data) => {
+   const general = client.guilds.cache.get(config.guildID).channels.cache.find(ch=>ch.name==="general")
+   general.send(data);
+});
+
 startSchedule(client);
 
 client.login(config.Token)
