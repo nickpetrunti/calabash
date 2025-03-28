@@ -12,7 +12,7 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction) {
     const max = interaction.options.getInteger("maximum");
-    await interaction.reply(`\`${Math.random()*(max - 0) + 0}`)
+    await interaction.reply(`\`\`${Math.floor(Math.random()*(max - 0) + 0)}\`\``)
 }
 
 export {data, execute, inDev}
