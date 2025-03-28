@@ -35,12 +35,18 @@ async function execute(interaction) {
     interaction
         .awaitModalSubmit({filter, time:30_000})
         .then(async(modalSubmission) => {
-            const data = modalSubmission.fields.getTextInputValue("transferModalData")
-
+            let data = modalSubmission.fields.getTextInputValue("transferModalData")
+            if(data.startsWith("[")) {data = data.substring(1)}
+            if(data.endsWith("]")) {data = data.substring(0,data.length-2)}
             const db = await database.fetchDatabase("warnings")
             for (let raw of data.split("},")) {
                 if(!raw.endsWith("}")) {raw = raw+"}"}
-                const warn = JSONbig.parse(raw)
+                let warn;
+                try {
+                    warn = JSONbig.parse(raw)
+                } catch {
+                    await interaction.reply({content: "Improper data format submitted.", flags:[MessageFlags.Error, MessageFlags.Ephemeral,]})
+                }
                     try {
                         if (raw.action === "warn") {
                             let warnID = await db.findOne({title: "warnID"})

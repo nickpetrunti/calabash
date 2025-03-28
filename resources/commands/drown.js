@@ -93,9 +93,8 @@ async function execute(interaction) {
              .setDescription(`${bold("Reason")}: ${reason}\n${bold("Duration")}: ${duration}`)
              .setTimestamp()
 
-         try {
-             target.send({embeds:[notifEmbed]})
-         } catch(e) {console.error(e)}
+         target.send({embeds:[notifEmbed]})
+             .catch(e => {})
 
      } catch (e) {
          console.error(e)

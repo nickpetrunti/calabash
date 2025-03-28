@@ -55,9 +55,8 @@ async function execute(interaction) {
                 return
         }
 
-        try {
-                tMember.send({embeds:[notifEmbed]})
-        } catch(e) {}
+        tMember.send({embeds:[notifEmbed]})
+            .catch(e => {})
 
         try {
                 interaction.guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]})
