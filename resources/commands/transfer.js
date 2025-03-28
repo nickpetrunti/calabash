@@ -33,7 +33,7 @@ async function execute(interaction) {
 
     const filter = (interaction) => interaction.customId === `transferModal-${interaction.member.user.id}`;
     interaction
-        .awaitModalSubmit({filter, time:30_000})
+        .awaitModalSubmit({filter, time:60_000})
         .then(async(modalSubmission) => {
             let data = modalSubmission.fields.getTextInputValue("transferModalData")
             if(data.startsWith("[")) {data = data.substring(1)}
@@ -46,6 +46,7 @@ async function execute(interaction) {
                     warn = JSONbig.parse(raw)
                 } catch {
                     await modalSubmission.reply({content: "Improper data format submitted.", flags:[MessageFlags.Ephemeral]})
+                    return
                 }
                     try {
                         if (raw.action === "warn") {
@@ -101,6 +102,7 @@ async function execute(interaction) {
             await modalSubmission.reply({content:`Successfully imported ${data.split("},").length} warnings from <@${target.id}>`, flags:[MessageFlags.Ephemeral]})
 
         })
+        .catch(e=>{});
 
 }
 
