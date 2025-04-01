@@ -15,7 +15,7 @@ import config from "../../config.json" with {type: "json"};
 const inDev = false
 
 const data = new SlashCommandBuilder()
-    .setName("warns2")
+    .setName("warns")
     .setDescription("Lists a users warnings")
     .addUserOption(option =>
         option
