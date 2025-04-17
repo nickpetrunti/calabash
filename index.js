@@ -28,7 +28,7 @@ eventFiles.forEach(async(file) => {
 })
 
 process.stdin.on('data', (data) => {
-   const general = client.guilds.cache.get(config.guildID).channels.cache.find(ch=>ch.id==="1344478522957369395")
+   const general = client.guilds.cache.get(config.guildID).channels.cache.find(ch=>ch.id==="1297365478347378769")
    general.send(data.toString());
 });
 
