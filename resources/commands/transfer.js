@@ -1,101 +1,82 @@
 import { SlashCommandBuilder,  ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags } from "discord.js";
 import database from "../../database.js";
 import JSONbig from "json-bigint"
+import fetch from "node-fetch";
+
 const inDev = false
 const commandType = "moderation";
-
 const data = new SlashCommandBuilder()
     .setName("transfer")
     .setDescription("Transfer warns from Carl")
+    .addStringOption(option => option
+        .setName("url")
+        .setDescription("The URl of the moderation log")
+        .setRequired(true))
 
 async function execute(interaction) {
-    const modal = new ModalBuilder()
-        .setCustomId(`transferModal-${interaction.member.user.id}`)
-        .setTitle("Warning Transfer")
+    const dataURL = interaction.options.getString("url");
+    const dataFetch = await fetch(dataURL);
+    const dataBuffer = await dataFetch.buffer();
+    const dataString = dataBuffer.toString();
+    const data = JSONbig.parse(dataString)
 
-    const transferData = new TextInputBuilder()
-        .setCustomId("transferModalData")
-        .setLabel("Warning Data")
-        .setStyle(TextInputStyle.Paragraph)
+    let total = 0;
+    let targetId = 0;
+    try {
+        const db = await database.fetchDatabase("warnings")
+        for (const entry of data) {
+            if (entry.action === "warn") {
+                total++;
+                let warnID = await db.findOne({title: "warnID"})
+                warnID = warnID.value;
+                warnID+=1
+                await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
 
-    const dataRow = new ActionRowBuilder().addComponents(transferData);
+                const warningsDB = await database.fetchDatabase("warnings")
 
-    modal.addComponents(dataRow)
+                let timestampData = entry.timestamp.split("T")[0].split("-")
+                if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
+                const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
 
-    await interaction.showModal(modal)
+                targetId = entry.offender_id.toString();
 
-    const filter = (interaction) => interaction.customId === `transferModal-${interaction.member.user.id}`;
-    interaction
-        .awaitModalSubmit({filter, time:60_000})
-        .then(async(modalSubmission) => {
-            let data = modalSubmission.fields.getTextInputValue("transferModalData")
-            if(data.startsWith("[")) {data = data.substring(1)}
-            if(data.endsWith("]")) {data = data.substring(0,data.length-2)}
-            const db = await database.fetchDatabase("warnings")
-            for (let raw of data.split("},")) {
-                if(!raw.endsWith("}")) {raw = raw+"}"}
-                let warn;
-                try {
-                    warn = JSONbig.parse(raw)
-                } catch {
-                    await modalSubmission.reply({content: "Improper data format submitted.", flags:[MessageFlags.Ephemeral]})
-                    return
-                }
-                    try {
-                        if (raw.action === "warn") {
-                            let warnID = await db.findOne({title: "warnID"})
-                            warnID = warnID.value;
-                            warnID+=1
-                            await db.updateOne({title: "warnID"}, {$set: {value: warnID}})
+                let modId = entry.moderator_id
+                await warningsDB.insertOne({
+                    target: targetId,
+                    rule: "N/A",
+                    explanation: entry.reason,
+                    evidence: "N/A",
+                    timestamp: timestamp,
+                    moderator: modId.toString(),
+                    id: warnID,
+                    type: "warning"
+                })
+            } else if(entry.action === "ban") {
+                total++;
+                const warningsDB = await database.fetchDatabase("warnings")
 
+                let timestampData = entry.timestamp.split("T")[0].split("-")
+                if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
+                const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
 
-                            const warningsDB = await database.fetchDatabase("warnings")
+                targetId = entry.offender_id.toString();
 
-                            let timestampData = warn.timestamp.split("T")[0].split("-")
-                            if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
-                            const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
-
-                            let targetId = warn.offender_id
-
-                            let modId = warn.moderator_id
-                            await warningsDB.insertOne({
-                                target: targetId.toString(),
-                                rule: "N/A",
-                                explanation: warn.reason,
-                                evidence: "N/A",
-                                timestamp: timestamp,
-                                moderator: modId.toString(),
-                                id: warnID,
-                                type: "warning"
-                            })
-                        } else if(raw.action == "ban") {
-                            const warningsDB = await database.fetchDatabase("warnings")
-
-                            let timestampData = warn.timestamp.split("T")[0].split("-")
-                            if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
-                            const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
-
-                            let targetId = warn.offender_id
-
-                            let modId = warn.moderator_id
-                            await warningsDB.insertOne({
-                                target: targetId.toString(),
-                                explanation: warn.reason,
-                                timestamp: timestamp,
-                                moderator: modId.toString(),
-                                type: "ban"
-                            })
-                        }
-
-                    } catch(e) {
-                        console.error(e)
-                    }
+                let modId = entry.moderator_id
+                await warningsDB.insertOne({
+                    target: targetId,
+                    explanation: entry.reason,
+                    timestamp: timestamp,
+                    moderator: modId.toString(),
+                    type: "ban"
+                })
             }
+        }
+    } catch(e) {
+        console.warn(e);
+        await interaction.reply({content: "An error occurred while importing warnings.",flags:MessageFlags.Ephemeral})
+    }
 
-            await modalSubmission.reply({content:`Successfully imported ${data.split("},").length} warnings from <@${targetId}>`, flags:[MessageFlags.Ephemeral]})
-
-        })
-        .catch(e=>{});
+    await interaction.reply({content:`Successfully transferred **${total}** cases from **${targetId}**`, flags: MessageFlags.Ephemeral})
 
 }
 
