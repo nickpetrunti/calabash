@@ -62,7 +62,7 @@ async function execute(interaction) {
             } else {
 
                 embed.addFields({
-                    name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                    name: `WARN [${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
                     value: `Moderator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
                     inline: true
                 })
@@ -72,7 +72,7 @@ async function execute(interaction) {
         } else if(warn.type === "drown") {
 
             embed.addFields({
-                name: ``,
+                name: `[DROWN]`,
                 value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
                 inline: true
             })
