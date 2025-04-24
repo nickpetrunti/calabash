@@ -50,48 +50,48 @@ async function execute(interaction) {
 
         if (warn.type === "warning") {
             if (warn.rule === "N/A" && warn.evidence === "N/A") {
-                /*
+
                 embed.addFields({
                     name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
                     value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
                     inline: true
                 })
-                 */
 
-                description+=`${bold(`[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}\n\n`
+
+                //description+=`${bold(`[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}\n\n`
             } else {
-                /*
+
                 embed.addFields({
                     name: `[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
                     value: `Moderator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
                     inline: true
                 })
-                 */
-                description+=`${bold(`[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)}\n\n`
+
+                //description+=`${bold(`[${warn.id}]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nRule: ${warn.rule}\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)}\n\n`
             }
         } else if(warn.type === "drown") {
-            /*
+
             embed.addFields({
                 name: ``,
                 value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
                 inline: true
             })
-             */
-            description+=`${bold(`[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}\n\n`
+
+            //description+=`${bold(`[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}\n\n`
         } else if(warn.type === "ban") {
-            /*
+
             embed.addFields({
                 name: `[BAN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
                 value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
                 inline: true
             })
-             */
-            description+=`${bold(`[BAN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}\n\n`
+
+           //description+=`${bold(`[BAN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`)}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}\n\n`
         }
 
     }
 
-    embed.setDescription(description)
+    //embed.setDescription(description)
 
     try {
         await interaction.reply({embeds: [embed], flags: MessageFlags.Ephemeral})
