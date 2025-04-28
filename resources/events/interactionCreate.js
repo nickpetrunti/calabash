@@ -21,6 +21,11 @@ async function execute(interaction) {
             }
         }
 
+        if (command.disabled === true) {
+            await interaction.reply({ content: 'This command is currently disabled.', flags: MessageFlags.Ephemeral });
+            return
+        }
+
         if (command.commandType && command.commandType === "moderation") {
             if(!interaction.member.roles.cache.get(config.moderatorRoleID) && !interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
                 await interaction.reply({content: "You lack the permissions to execute this command.", flags: MessageFlags.Ephemeral})

@@ -25,7 +25,9 @@ async function execute(interaction) {
     try {
         const db = await database.fetchDatabase("warnings")
         for (const entry of data) {
+            targetId = entry.offender_id.toString();
             if (entry.action === "warn") {
+                if (await db.findOne({carlID: entry.case_id})) { continue }
                 total++;
                 let warnID = await db.findOne({title: "warnID"})
                 warnID = warnID.value;
@@ -38,8 +40,6 @@ async function execute(interaction) {
                 if (timestampData[2].includes("0")) { timestampData[2] = timestampData[2].replaceAll("0","")}
                 const timestamp = Math.floor(new Date(timestampData[0],timestampData[1]-1,timestampData[2]).getTime() / 1000)
 
-                targetId = entry.offender_id.toString();
-
                 let modId = entry.moderator_id
                 await warningsDB.insertOne({
                     target: targetId,
@@ -49,9 +49,11 @@ async function execute(interaction) {
                     timestamp: timestamp,
                     moderator: modId.toString(),
                     id: warnID,
-                    type: "warning"
+                    type: "warning",
+                    carlID: entry.case_id
                 })
             } else if(entry.action === "ban") {
+                if (await db.findOne({carlID: entry.case_id})) { continue }
                 total++;
                 const warningsDB = await database.fetchDatabase("warnings")
 
@@ -67,7 +69,8 @@ async function execute(interaction) {
                     explanation: entry.reason,
                     timestamp: timestamp,
                     moderator: modId.toString(),
-                    type: "ban"
+                    type: "ban",
+                    carlID: entry.case_id
                 })
             }
         }
