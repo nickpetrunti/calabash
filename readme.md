@@ -1,6 +1,6 @@
 # Calabash
 
-## Quickstart
+## Config Setup
 In order to get the bot running, you must first create a *config.json* in the root directory.  
 The format for the file is the following:  
 ```json 
@@ -30,6 +30,7 @@ Some commands contain flags in their ``.js`` files such as _inDev_, _disabled_, 
 
 - **inDev**: [boolean] [Limits command usage to users specified in the ``whitelist``]
 - **disabled**: [boolean] [Disables the command entirely]
-- **commandType**: [String] [Accepts the parameter _moderation_ currently, locking the command to users with the moderation role assigned in the ``config.json``]
+- **commandType**: [string] [Accepts the parameter _moderation_ currently, locking the command to users with the moderation role assigned in the ``config.json``]
 
-``index.js`` acts as the main file. Executing it will intialize your guild commands and the bot.
+## Quickstart
+``index.js`` acts as the main file. Executing it via ``node index.js`` will initialize your guild commands and the bot.
