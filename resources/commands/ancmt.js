@@ -8,9 +8,9 @@ import {
     ButtonStyle,
     MessageFlags, ThumbnailBuilder
 } from "discord.js";
-const inDev = false
+const inDev = true
 const commandType = "moderation";
-const disabled = false;
+const disabled = true;
 
 const data = new SlashCommandBuilder()
     .setName("ancmt")
