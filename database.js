@@ -4,7 +4,7 @@ import config from "./config.json" with {type: "json"}
 const url = config.databaseURL;
 
 const mongoClient = new MongoClient(url);
-const db = mongoClient.db("dwi")
+const db = mongoClient.db(config.dbName)
 
 async function fetchDatabase(collectionName) {
     return db.collection(collectionName);

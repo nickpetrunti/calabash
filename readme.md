@@ -5,16 +5,20 @@ In order to get the bot running, you must first create a *config.json* in the ro
 The format for the file is the following:  
 ```json 
 {
-  "Token": "TOKEN",
-  "clientID": "APPLICATION ID",
-  "guildID": "GUILD ID",
-  "warnLogsID": "WARNING CHANNEL ID",
-  "whitelist": []
+  "Token": "client-token",
+  "clientID": "client-id",
+  "guildID": "guild-id",
+  "moderatorRoleID": "moderator-role-id",
+  "warnLogsID": "warning-log-channel-id",
+  "whitelist": ["user-id"],
+  "databaseURL": "database-url",
+  "OpenAIKey": "openai-key"
 }
 ```
 The whitelist list is only necessary for bypassing protected commands flagged with *in-dev*.  
-To add a user to this whitelist, just insert ``"USERID"`` into the list.  
+To add a user to this whitelist, insert their ``"USERID"`` into the list.  
 
-**BEFORE STARTING THE BOT** ensure you run ``node handler.js`` to register all the commands with your guild.  
+## Database Setup
+Calabash supports only **MongoDB**. 
 
 To start the bot run ``node index.js``
