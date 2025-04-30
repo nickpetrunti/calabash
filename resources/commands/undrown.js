@@ -5,7 +5,7 @@ import {
     MessageFlags,
     EmbedBuilder, bold, hyperlink
 } from "discord.js";
-import database from "../../database.js";
+import database from "../modules/database.js";
 import config from "../../config.json" with {type: "json"};
 import {schedule} from "../modules/schedule.js";
 const inDev = false

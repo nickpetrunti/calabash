@@ -1,4 +1,4 @@
-import database from "../../database.js";
+import database from "./database.js";
 import config from "../../config.json" with {type: 'json'};
 import "discord.js"
 import {v4 as uuid} from "uuid";

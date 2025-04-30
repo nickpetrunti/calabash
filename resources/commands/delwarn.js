@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags, EmbedBuilder, bold } from "discord.js";
-import database from "../../database.js";
+import database from "../modules/database.js";
 import config from "../../config.json" with {type:"json"};
 
 const inDev = false

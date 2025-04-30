@@ -1,5 +1,5 @@
 import { SlashCommandBuilder,  ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags } from "discord.js";
-import database from "../../database.js";
+import database from "../modules/database.js";
 import JSONbig from "json-bigint"
 import fetch from "node-fetch";
 

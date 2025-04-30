@@ -2,7 +2,7 @@ import {REST, Routes } from "discord.js"
 import fs from "node:fs";
 const commands = [];
 
-import config from './config.json' with {type: 'json'}
+import config from '../../config.json' with {type: 'json'}
 
 const files = fs.readdirSync("./resources/commands/").filter(file => file.endsWith('.js'), {withFileTypes: true});
 const rest = new REST().setToken(config.Token);
@@ -11,7 +11,7 @@ function Initialize() {
      (async () => {
         await (async () => {
             const promises = files.map(async (file) => {
-                const command = await import(`./resources/commands/${file}`);
+                const command = await import(`../commands/${file}`);
                 commands.push(command.data.toJSON());
             })
 

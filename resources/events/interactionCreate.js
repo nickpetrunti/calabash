@@ -1,7 +1,7 @@
 import {Events, Message, MessageFlags, PermissionFlagsBits, EmbedBuilder, hyperlink, bold } from "discord.js"
 import {MongoClient} from "mongodb";
 import config from '../../config.json' with {type: 'json'}
-import database from "../../database.js";
+import database from "../modules/database.js";
 
 const name = Events.InteractionCreate
 async function execute(interaction) {
