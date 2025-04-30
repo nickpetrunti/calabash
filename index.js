@@ -3,7 +3,6 @@ import {run as startSchedule} from "./resources/modules/schedule.js";
 import config from './config.json' with {type: 'json'}
 import fs from "node:fs";
 
-
 const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 client.commands = new Collection();
 
