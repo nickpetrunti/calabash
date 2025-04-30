@@ -1,9 +1,9 @@
 import {REST, Routes } from "discord.js"
 import fs from "node:fs";
-const commands = [];
-
+import chalk from "chalk";
 import config from '../../config.json' with {type: 'json'}
 
+const commands = [];
 const files = fs.readdirSync("./resources/commands/").filter(file => file.endsWith('.js'), {withFileTypes: true});
 const rest = new REST().setToken(config.Token);
 
@@ -24,7 +24,7 @@ function Initialize() {
                     {body: commands}
                 )
 
-                console.log(`Successfully reloaded ${result.length} application (/) commands.`);
+                console.log(`${chalk.hex("#ffde85").bold("COMMANDS LOADED: ")}${chalk.whiteBright.bold(result.length)}`)
             } catch (error) {
                 console.error(error);
             }

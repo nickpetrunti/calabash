@@ -2,16 +2,10 @@ import { Client, Events, GatewayIntentBits, Collection, } from 'discord.js';
 import {run as startSchedule} from "./resources/modules/schedule.js";
 import config from './config.json' with {type: 'json'}
 import fs from "node:fs";
-import {Initialize} from "./resources/modules/handler.js"
+
 
 const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 client.commands = new Collection();
-
-client.on(Events.ClientReady, activeClient => {
-   Initialize()
-   console.log(`Successfully authenticated as ${activeClient.user.tag}.`)
-//   client.guilds.cache.get(config.guildID).channels.cache.get("1297365478347378769").send({content: "im awake"})
-});
 
 const commandFiles = fs.readdirSync("./resources/commands/").filter(file => file.endsWith('.js'), {withFileTypes: true});
 const eventFiles = fs.readdirSync("./resources/events/").filter(file => file.endsWith('.js'), {withFileTypes: true});
