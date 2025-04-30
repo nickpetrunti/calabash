@@ -12,7 +12,7 @@ async function execute(client) {
     Initialize()
 
     console.log(`${chalk.bold.whiteBright("--> ")}${chalk.hex("#a7db7d").bold("Calabash ")}${chalk.whiteBright.bold(`v.${client.version} `)}${chalk.white("has started.")}${chalk.bold.whiteBright(" <--")}`)
-    console.log(chalk.whiteBright("-").repeat(29)+"\n")
+    console.log(chalk.whiteBright("-").repeat(37)+"\n")
 }
 
 export {name,execute}
