@@ -1,4 +1,8 @@
-import { Client, Events, GatewayIntentBits, Collection, } from 'discord.js';
+import {
+   Client,
+   GatewayIntentBits,
+   Collection
+} from 'discord.js';
 import {run as startSchedule} from "./resources/modules/schedule.js";
 import config from './config.json' with {type: 'json'}
 import fs from "node:fs";
