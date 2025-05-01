@@ -16,10 +16,11 @@ const data = new SlashCommandBuilder()
             .setRequired(true))
 
 async function execute(interaction) {
+    const modalTag = crypto.randomInt(999999)
 //    if(!interaction.member.roles.cache.has("1011510257232646164") && !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages, true)) return;
 
     const modal = new ModalBuilder()
-        .setCustomId(`warningModal-${interaction.member.user.id}-${crypto.randomInt(999999)}`)
+        .setCustomId(`warningModal-${interaction.member.user.id}-${modalTag}`)
         .setTitle("Warning Submission")
 
     const ruleInput = new TextInputBuilder()
@@ -44,7 +45,7 @@ async function execute(interaction) {
 
     modal.addComponents(rowOne, rowTwo, rowThree);
     const target = interaction.options.getUser("user")
-    const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}-${crypto.randomInt(999999)}`;
+    const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}-${modalTag}`;
     await interaction.showModal(modal);
 
     await interaction.awaitModalSubmit({filter, time:45_000})
