@@ -3,7 +3,7 @@ import database from "../modules/database.js";
 import config from "../../config.json" with {type:"json"};
 import chalk from "chalk";
 const inDev = false
-const crypto = require("crypto");
+import crypto from "crypto";
 const commandType = "moderation";
 //
 const data = new SlashCommandBuilder()
