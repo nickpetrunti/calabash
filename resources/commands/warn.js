@@ -3,6 +3,7 @@ import database from "../modules/database.js";
 import config from "../../config.json" with {type:"json"};
 import chalk from "chalk";
 const inDev = false
+const crypto = require("crypto");
 const commandType = "moderation";
 //
 const data = new SlashCommandBuilder()
@@ -18,7 +19,7 @@ async function execute(interaction) {
 //    if(!interaction.member.roles.cache.has("1011510257232646164") && !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages, true)) return;
 
     const modal = new ModalBuilder()
-        .setCustomId(`warningModal-${interaction.member.user.id}`)
+        .setCustomId(`warningModal-${interaction.member.user.id}-${crypto.randomInt(999999)}`)
         .setTitle("Warning Submission")
 
     const ruleInput = new TextInputBuilder()
@@ -43,7 +44,7 @@ async function execute(interaction) {
 
     modal.addComponents(rowOne, rowTwo, rowThree);
     const target = interaction.options.getUser("user")
-    const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}`;
+    const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}-${crypto.randomInt(999999)}`;
     await interaction.showModal(modal);
 
     await interaction.awaitModalSubmit({filter, time:45_000})
