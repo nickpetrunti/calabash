@@ -2,10 +2,10 @@ import { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, 
 import database from "../modules/database.js";
 import config from "../../config.json" with {type:"json"};
 import chalk from "chalk";
-const inDev = false
 import crypto from "crypto";
+
+const inDev = false
 const commandType = "moderation";
-//
 const data = new SlashCommandBuilder()
     .setName("warn")
     .setDescription("Warns a user for a rule infraction")
