@@ -48,7 +48,7 @@ async function execute(interaction) {
     const filter = (intr) => intr.customId === `warningModal-${interaction.member.user.id}-${modalTag}`;
     await interaction.showModal(modal);
 
-    await interaction.awaitModalSubmit({filter, time:45_000})
+    await interaction.awaitModalSubmit({filter, time:120_000})
         .then(async(result) => {
             console.log(chalk.rgb(255, 192, 66).bold(`WARN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
             const rule = result.fields.getTextInputValue("warningModalRule");
