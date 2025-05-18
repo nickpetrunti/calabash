@@ -47,7 +47,11 @@ async function execute(interaction) {
                 type: "ban"
         })
 
+
+
         try {
+                tMember.send({embeds:[notifEmbed]})
+                    .catch(e => {})
                 await interaction.guild.bans.create(target.id,{reason:reason})
         } catch(e) {
                 console.error(e)
@@ -55,8 +59,7 @@ async function execute(interaction) {
                 return
         }
 
-        tMember.send({embeds:[notifEmbed]})
-            .catch(e => {})
+
 
         try {
                 interaction.guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]})
