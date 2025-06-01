@@ -44,9 +44,12 @@ async function smartabash(message) {
         let pass = true
 
         for (const [trigger, resp] of Object.entries(smartabashBlacklist)) {
+            if(!userInput) {pass=false; break}
+
             if (userInput.includes(trigger)) {
                 message.reply({content: resp})
                 pass = false
+                break
             }
         }
 
