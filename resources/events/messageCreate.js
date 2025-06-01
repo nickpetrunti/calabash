@@ -22,7 +22,7 @@ async function execute(message) {
             //     } catch {
             //         return;
             //     }
-        } else if( (message.member.roles.cache.find(role => role.id==="1265688654240678010") || message.member.roles.cache.find(role => role.id==="1265318758931501076") || message.member.roles.cache.find(role => role.id==="1174253869228884008")) && message.content.includes("smartabash, ")) {
+        } else if( (message.member.roles.cache.find(role => role.id==="1265688654240678010") || message.member.roles.cache.find(role => role.id==="1265318758931501076") || message.member.roles.cache.find(role => role.id==="1174253869228884008")) && message.content.toLowerCase().includes("smartabash, ")) {
             await smartabash(message)
         } else if(config.whitelist.includes(message.author.id) && message.content.toLowerCase().includes("speakabash, ")) {
             await speakabash(message)
