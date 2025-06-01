@@ -53,7 +53,7 @@ async function smartabash(message) {
             response_format: {
                 "type": "text"
             },
-            temperature: 1,
+            temperature: 2,
             max_completion_tokens: 1000,
             top_p: 1,
             frequency_penalty: 0,
