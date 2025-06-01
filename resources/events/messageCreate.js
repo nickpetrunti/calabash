@@ -5,6 +5,7 @@ const name = Events.MessageCreate
 // MODULES
 import {smartabash, speakabash, lookabash, makeabash} from "../modules/calabash-ai.js"
 
+let whitelistAI = ["1265688654240678010", "1265318758931501076", "1174253869228884008"]
 
 async function execute(message) {
     try {
@@ -22,8 +23,13 @@ async function execute(message) {
             //     } catch {
             //         return;
             //     }
-        } else if( (message.member.roles.cache.find(role => role.id==="1265688654240678010") || message.member.roles.cache.find(role => role.id==="1265318758931501076") || message.member.roles.cache.find(role => role.id==="1174253869228884008")) && message.content.toLowerCase().includes("smartabash, ")) {
-            await smartabash(message)
+        } else if(message.content.toLowerCase().includes("smartabash, ")) {
+            for (const roleID of whitelistAI) {
+                if(message.member.roles.cache.has(roleID)) {
+                    await smartabash(message)
+                    return
+                }
+            }
         } else if(config.whitelist.includes(message.author.id) && message.content.toLowerCase().includes("speakabash, ")) {
             await speakabash(message)
         } else if(config.whitelist.includes(message.author.id) && message.content.includes("lookabash, ")) {
@@ -32,7 +38,7 @@ async function execute(message) {
             await makeabash(message)
         }
     } catch(e) {
-
+        console.warn(e)
     }
 }
 

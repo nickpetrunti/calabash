@@ -26,7 +26,7 @@ function Initialize() {
 
                 console.log(`${chalk.hex("#ffde85").bold("COMMANDS LOADED: ")}${chalk.whiteBright.bold(result.length)}`)
             } catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         })();
     })();

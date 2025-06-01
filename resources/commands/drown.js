@@ -97,7 +97,7 @@ async function execute(interaction) {
              .catch(e => {})
 
      } catch (e) {
-         console.error(e)
+         console.warn(e)
      }
 
 }

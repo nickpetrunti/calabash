@@ -17,7 +17,7 @@ export async function run(client) {
                     await member.roles.remove(guild.roles.cache.find(role => role.name === schedule.role))
                 } catch(e) {await schedules.deleteOne({id: schedule.id})}
                 await schedules.deleteOne({id: schedule.id})
-                    .catch(e=>{console.error(e)})
+                    .catch(e=>{console.warn(e)})
             }
         }
     }, 5000)

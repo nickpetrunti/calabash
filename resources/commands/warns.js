@@ -97,7 +97,7 @@ async function execute(interaction) {
         await interaction.reply({embeds: [embed], flags: MessageFlags.Ephemeral})
     } catch (e) {
         console.warn("Error while checking warns for "+target.id)
-        console.error(e);
+        console.warn(e);
     }
 }
 

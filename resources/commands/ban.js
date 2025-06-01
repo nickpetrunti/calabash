@@ -54,7 +54,7 @@ async function execute(interaction) {
                     .catch(e => {})
                 await interaction.guild.bans.create(target.id,{reason:reason})
         } catch(e) {
-                console.error(e)
+                console.warn(e)
                 await interaction.reply({content:`An error occurred while banning this user.`, flags:[MessageFlags.Ephemeral]})
                 return
         }
