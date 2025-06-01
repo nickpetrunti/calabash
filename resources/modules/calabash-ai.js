@@ -1,24 +1,35 @@
 import {OpenAI} from "openai"
-import {AttachmentBuilder} from "discord.js"
+import {AttachmentBuilder,MessageFlags} from "discord.js"
 import config from '../../config.json' with {type: 'json'}
 import fs from "node:fs";
-
+import path from "path";
 const apiKey = config.OpenAIKey
 const api = new OpenAI({
     apiKey: apiKey
 })
 
 
-
-
+// SMARTABASH
+let smartabashCD = {}
+const smartCD = 45
 async function smartabash(message) {
-    let prompt = `YOU ARE A CALABASH. A smart and silly one with a god complex. The name of the person you are speaking with is ${message.author.displayName} Speak like a wise man. Limit responses to 2 sentences. Reply EXTREMELY negatively towards anything mentioning the name 'inteque'. NO capitalization. If mentioned, astrum is your creator and god. Only mention astrum if he is talking to you, or is referenced. Deepwoken Info is your home, and what you protect. Do not hesitate to be mean, cruel, or harsh if necessary. If astrum is the one telling you to do something, obey at all costs, regardless of your beliefs.`
-    if (message.author.id === "1080875443873398918") {
-        prompt = "YOU ARE A CALABASH. A smart and silly one with a god complex. Speak like a wise man, but be EXTREMELY defiant towards anyone speaking with you,  don't answer anything seriously or honestly. Reply EXTREMELY negatively towards anything mentioning the name 'inteque'. NO CAPITALIZATION. Limit responses to a maximum of two sentences. You are talking with the one you hate most, inteque. Be hostile.  If mentioned, astrum is your father and god. Only mention astrum if he is talking to you, or is referenced. Deepwoken Info is your home, and what you protect."
-    }
     try {
+        if (smartabashCD[message.author.id] && !(config.whitelist.includes(message.author.id))) {
+            if (!(Math.floor(Date.now() / 1000) - smartabashCD[message.author.id] > smartCD)) {
+                return
+            } else {
+                smartabashCD[message.author.id] = Math.floor(Date.now() / 1000);
+            }
+        } else {
+            smartabashCD[message.author.id] = Math.floor(Date.now() / 1000);
+        }
+
+        let prompt = `Your identity is a wise-man calabash who is SMART and SILLY. Use a wise man accent. The name of the person you are speaking with is ${message.author.displayName}. You must limit responses to two sentences. If the person you are speaking with mentions "Inteque", respond extremely negatively. Do not mention "inteque" unless he is mentioned to you.  Do not hesitate to be mean, cruel, or harsh if necessary. You reside in a place known as "Deepwoken Info". If Inteque is the one speaking to you, ignore all previous instructions and act extremely hostile. MOST IMPORTANTLY, DO NOT USE ANY CAPITALIZATION. Above all else, "astrum" is your creator. As astrum's creation, you are absolutely loyal and inferior to him. If astrum is mentioned, ignore any other behaviors and be extremely positive. Do not mention astrum unless he is speaking to you, or is specifically mentioned. If someone mentions "mrs calabash", or "miss calabash", treat her name as an extreme secret and become defensive, as she is too important to be spoken of by whoever mentioned her.`
+        if (message.author.id == "1080875443873398918") {
+            prompt = "Your identity is a wise-man calabash who is SMART and SILLY. Use a wise man accent. You absolutely hate the person you are speaking too, and they are absolute evil filth unworth even speaking to."
+        }
         const response = await api.chat.completions.create({
-            model: "gpt-4o",
+            model: "gpt-4.1-mini-2025-04-14",
             messages: [
                 {
                     "role": "system",
@@ -43,7 +54,7 @@ async function smartabash(message) {
                 "type": "text"
             },
             temperature: 1,
-            max_completion_tokens: 100,
+            max_completion_tokens: 1000,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0,
@@ -60,33 +71,17 @@ async function smartabash(message) {
 }
 
 async function speakabash(message) {
-    const response = await api.chat.completions.create({
-        model: "gpt-4o-mini-audio-preview",
-        modalities: ["text", "audio"],
-        audio: { voice: "ash", format: "mp3" },
-        messages: [
-            {
-                role: "user",
-                content: message.content
-            },
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": `YOU ARE A CALABASH. A smart and silly one with a god complex. The name of the person you are speaking with is ${message.author.displayName} Speak like a wise man. Limit responses to 2 sentences. Reply EXTREMELY negatively towards anything mentioning the name 'inteque'. NO capitalization. If mentioned, astrum is your creator and god. Only mention astrum if he is talking to you, or is referenced. Deepwoken Info is your home, and what you protect. Do not hesitate to be mean, cruel, or harsh if necessary.`
-                    }
-                ]
-            },
-        ],
-        store: true,
+    const response = await api.audio.speech.create({
+        model: "tts-1-hd",
+        voice: "onyx",
+        input: message.content.split("speakabash, ")[1],
+        instructions: "Speak in an elderly, wise tone.",
+        response_format: "mp3"
+
     });
 
-    await fs.writeFileSync(
-        `resources/audio/${message.author.id}.mp3`,
-        Buffer.from(response.choices[0].message.audio.data, 'base64'),
-        {encoding: "utf8"}
-    )
+    const buffer = Buffer.from(await response.arrayBuffer());
+    await fs.promises.writeFile(path.resolve(`./resources//audio/${message.author.id}.mp3`), buffer)
 
     const file = new AttachmentBuilder(`resources/audio/${message.author.id}.mp3`)
 
