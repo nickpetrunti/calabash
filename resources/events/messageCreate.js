@@ -3,7 +3,7 @@ import config from '../../config.json' with {type: 'json'}
 const name = Events.MessageCreate
 
 // MODULES
-import {smartabash, speakabash, lookabash, makeabash} from "../modules/calabash-ai.js"
+import {smartabash, speakabash, lookabash, makeabash, searchabash} from "../modules/calabash-ai.js"
 
 let whitelistAI = ["1265688654240678010", "1265318758931501076", "1174253869228884008"]
 
@@ -36,6 +36,8 @@ async function execute(message) {
             await lookabash(message)
         } else if(config.whitelist.includes(message.author.id) && message.content.includes("makeabash, ")) {
             await makeabash(message)
+        } else if(config.whitelist.includes(message.author.id) && message.content.includes("searchabash, ")) {
+            await searchabash(message)
         }
     } catch(e) {
         console.warn(e)
