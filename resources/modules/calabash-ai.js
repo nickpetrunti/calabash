@@ -155,7 +155,6 @@ async function makeabash(message) {
 
     if (!result) {return}
 
-    console.log(response.data[0].)
     await botResponse.edit({content: response.data[0].url})
 }
 
