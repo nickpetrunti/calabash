@@ -8,7 +8,6 @@ const api = new OpenAI({
     apiKey: apiKey
 })
 
-
 // SMARTABASH
 let smartabashCD = {}
 let smartabashBlacklist = {
@@ -96,7 +95,7 @@ async function smartabash(message) {
         }
         message.reply({content: resp})
     } catch (e) {
-        console.warn(e)
+        message.reply({content: "yeah i messed something up"})
     }
 }
 
@@ -141,13 +140,23 @@ async function lookabash(message) {
 }
 
 async function makeabash(message) {
+    let botResponse = await message.reply({content: "im cooking please wait"})
+    let result = true
     const response = await api.images.generate({
         model: "gpt-image-1",
         prompt: message.content.split("makeabash, ")[1],
         n: 1,
         size: "1024x1024",
-    });
-    await message.reply({content: response.data[0].url})
+    }).catch(async(e) => {
+        console.warn(e)
+        await message.reply({content: "sam altman messed up :("})
+        result = false
+    })
+
+    if (!result) {return}
+
+    console.log(response.data[0].)
+    await botResponse.edit({content: response.data[0].url})
 }
 
 async function searchabash(message) {

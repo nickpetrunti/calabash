@@ -14,8 +14,8 @@ async function execute(message) {
         if(message.mentions.has(message.client.user.id) && message.author.id !== message.client.user.id) {
             try {
                 message.reply({content: "hello"})
-            } catch {
-                return;
+            } catch(e) {
+
             }
         } else if(message.mentions.has("1080875443873398918")) {
             //     try {
