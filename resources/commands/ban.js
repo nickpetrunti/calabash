@@ -58,7 +58,7 @@ async function execute(interaction) {
                 tMember.send({embeds:[notifEmbed]})
                     .catch(e => {})
         } catch(e) {
-                console.warn(e)
+                console.log("Unable to notify")
         }
 
 
