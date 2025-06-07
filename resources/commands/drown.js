@@ -84,7 +84,7 @@ async function execute(interaction) {
          })
 
          targetMember.roles.add(interaction.guild.roles.cache.find(role => role.name === "drowned"))
-         await interaction.reply({content: `Successfully drowned <@${target.id}> `, flags:[MessageFlags.Ephemeral]})
+         await interaction.reply({content: `Successfully drowned <@${target.id}> `})
          await interaction.guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]});
 
          const notifEmbed = new EmbedBuilder()

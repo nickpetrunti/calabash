@@ -22,7 +22,6 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction) {
         const target = interaction.options.getUser("user")
-        const tMember = interaction.guild.members.cache.get(target.id)
         const reason = interaction.options.getString("reason");
         const warningsDB = await database.fetchDatabase("warnings")
 
@@ -47,17 +46,22 @@ async function execute(interaction) {
                 type: "ban"
         })
 
-
-
         try {
-                tMember.send({embeds:[notifEmbed]})
-                    .catch(e => {})
-                await interaction.guild.bans.create(target.id,{reason:reason})
+                await interaction.guild.bans.create(target.id, {reason:reason})
         } catch(e) {
-                console.warn(e)
                 await interaction.reply({content:`An error occurred while banning this user.`, flags:[MessageFlags.Ephemeral]})
                 return
         }
+
+        try {
+                const tMember = interaction.guild.members.cache.get(target.id)
+                tMember.send({embeds:[notifEmbed]})
+                    .catch(e => {})
+        } catch(e) {
+                console.warn(e)
+        }
+
+
 
 
 
