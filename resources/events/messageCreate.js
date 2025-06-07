@@ -26,7 +26,9 @@ async function execute(message) {
         } else if(message.content.toLowerCase().includes("smartabash, ")) {
             for (const roleID of whitelistAI) {
                 if(message.member.roles.cache.has(roleID)) {
-                    await smartabash(message)
+                    try {
+                        await smartabash(message)
+                    } catch(e) {console.warn(e)}
                     return
                 }
             }
