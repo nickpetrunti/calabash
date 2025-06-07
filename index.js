@@ -1,10 +1,11 @@
 import {
    Client,
    GatewayIntentBits,
-   Collection
+   Collection,
 } from 'discord.js';
 import {run as startSchedule} from "./resources/modules/schedule.js";
 import config from './config.json' with {type: 'json'}
+import chalk from "chalk";
 import fs from "node:fs";
 
 const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
