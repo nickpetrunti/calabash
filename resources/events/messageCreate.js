@@ -31,13 +31,22 @@ async function execute(message) {
                 }
             }
         } else if(config.whitelist.includes(message.author.id) && message.content.toLowerCase().includes("speakabash, ")) {
-            await speakabash(message)
+            try {
+                await speakabash(message)
+            } catch(e) {console.warn(e)}
         } else if(config.whitelist.includes(message.author.id) && message.content.includes("lookabash, ")) {
-            await lookabash(message)
+            try {
+                await lookabash(message)
+            } catch(e) {console.warn(e)}
         } else if(config.whitelist.includes(message.author.id) && message.content.includes("makeabash, ")) {
-            await makeabash(message)
+            try {
+                await makeabash(message)
+            } catch(e) {console.warn(e)}
+
         } else if(config.whitelist.includes(message.author.id) && message.content.includes("searchabash, ")) {
-            await searchabash(message)
+            try {
+                await searchabash(message)
+            } catch(e) {console.warn(e)}
         }
     } catch(e) {
         console.warn(e)
