@@ -34,18 +34,6 @@ async function execute(interaction) {
     }
 
     const cases = db.find({"moderator": target.id})
-
-    const container = new ContainerBuilder()
-    container.setAccentColor(0x40C79E)
-
-
-        container.addTextDisplayComponents(new TextDisplayBuilder().setContent([
-            `# Moderator Stats: <@${target.id}>`,
-        ].join("\n")))
-
-
-    container.addSeparatorComponents(separator => separator.setSpacing(SeparatorSpacingSize.Large));
-
     let warns = 0;
     let bans = 0;
     let drowns = 0;
@@ -56,6 +44,21 @@ async function execute(interaction) {
         else if (event.type === "drown") {drowns++}
         else if (event.type === "ban") {bans++}
     }
+
+    const elo = ((warns*10) + (bans*25) + (drowns*5)) + 500
+
+    const container = new ContainerBuilder()
+    container.setAccentColor(0x40C79E)
+
+
+        container.addTextDisplayComponents(new TextDisplayBuilder().setContent([
+            `# Moderator Stats: <@${target.id}>`,
+            `**ELO: ** \`\`${elo}\`\``
+        ].join("\n")))
+
+
+    container.addSeparatorComponents(separator => separator.setSpacing(SeparatorSpacingSize.Large));
+
 
     container.addTextDisplayComponents(new TextDisplayBuilder().setContent([
         `**Warnings: **${warns}`,
