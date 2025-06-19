@@ -12,7 +12,7 @@ import {
 } from "discord.js";
 import database from "../modules/database.js";
 import config from "../../config.json" with {type: "json"};
-const inDev = true
+const inDev = false
 const commandType = "moderation";
 
 const data = new SlashCommandBuilder()
