@@ -51,7 +51,10 @@ async function execute(interaction) {
     container.addSectionComponents(new SectionBuilder()
         .addTextDisplayComponents(new TextDisplayBuilder().setContent([
             `# Moderator Stats: <@${target.id}>`,
-            `**ELO: ** \`\`${elo}\`\``
+            `**ELO: ** \`\`${elo}\`\``,
+            `**Warnings: \`\`**${warns}\`\``,
+            `**Drowns: \`\`**${drowns}\`\``,
+            `**Bans: \`\`**${bans}\`\``
         ].join("\n")))
         .setThumbnailAccessory(new ThumbnailBuilder({
             description: "gurt",
@@ -60,15 +63,6 @@ async function execute(interaction) {
             }
         }))
     )
-
-    container.addSeparatorComponents(separator => separator.setSpacing(SeparatorSpacingSize.Large));
-
-
-    container.addTextDisplayComponents(new TextDisplayBuilder().setContent([
-        `**Warnings: **${warns}`,
-        `**Drowns: **${drowns}`,
-        `**Bans: **${bans}`
-    ].join("\n")))
 
 
     try {
