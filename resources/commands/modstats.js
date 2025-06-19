@@ -52,9 +52,9 @@ async function execute(interaction) {
         .addTextDisplayComponents(new TextDisplayBuilder().setContent([
             `# Moderator Stats: <@${target.id}>`,
             `**ELO: ** \`\`${elo}\`\``,
-            `**Warnings: \`\`**${warns}\`\``,
-            `**Drowns: \`\`**${drowns}\`\``,
-            `**Bans: \`\`**${bans}\`\``
+            `**Warnings: **\`\`${warns}\`\``,
+            `**Drowns: **\`\`${drowns}\`\``,
+            `**Bans: **\`\`${bans}\`\``
         ].join("\n")))
         .setThumbnailAccessory(new ThumbnailBuilder({
             description: "gurt",
