@@ -39,7 +39,6 @@ async function execute(interaction) {
     let drowns = 0;
 
     for await (const event of cases) {
-        console.log(event)
         if (event.type === "warning") {warns++}
         else if (event.type === "drown") {drowns++}
         else if (event.type === "ban") {bans++}
@@ -57,7 +56,7 @@ async function execute(interaction) {
         .setThumbnailAccessory(new ThumbnailBuilder({
             description: "gurt",
             media: {
-                url: user.avatarURL()
+                url: target.avatarURL()
             }
         }))
     )
