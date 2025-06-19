@@ -49,13 +49,18 @@ async function execute(interaction) {
 
     const container = new ContainerBuilder()
     container.setAccentColor(0x40C79E)
-
-
-        container.addTextDisplayComponents(new TextDisplayBuilder().setContent([
+    container.addSectionComponents(new SectionBuilder()
+        .addTextDisplayComponents(new TextDisplayBuilder().setContent([
             `# Moderator Stats: <@${target.id}>`,
             `**ELO: ** \`\`${elo}\`\``
         ].join("\n")))
-
+        .setThumbnailAccessory(new ThumbnailBuilder({
+            description: "gurt",
+            media: {
+                url: user.avatarURL()
+            }
+        }))
+    )
 
     container.addSeparatorComponents(separator => separator.setSpacing(SeparatorSpacingSize.Large));
 
