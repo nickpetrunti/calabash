@@ -3,6 +3,7 @@ import database from "../modules/database.js";
 import config from "../../config.json" with {type:"json"};
 import chalk from "chalk";
 import crypto from "crypto";
+import {update} from "../modules/elo.js";
 
 const inDev = false
 const commandType = "moderation";
@@ -56,6 +57,8 @@ async function execute(interaction) {
         id: warnID,
         type: "warning"
     })
+
+    await update(interaction.member.user, 15)
 
     console.log(chalk.rgb(255, 192, 66).bold(`WARN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
 

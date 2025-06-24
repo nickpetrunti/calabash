@@ -10,6 +10,7 @@ import {
     bold,
     hyperlink, ContainerBuilder, SectionBuilder, TextDisplayBuilder, ThumbnailBuilder, SeparatorSpacingSize
 } from "discord.js";
+import check from "../modules/elo.js"
 import database from "../modules/database.js";
 import config from "../../config.json" with {type: "json"};
 const inDev = false
@@ -44,14 +45,14 @@ async function execute(interaction) {
         else if (event.type === "ban") {bans++}
     }
 
-    //   const elo = ((warns*10) + (bans*25) + (drowns*5)) + 500
+    const elo = check(target)
 
     const container = new ContainerBuilder()
     container.setAccentColor(0x40C79E)
     container.addSectionComponents(new SectionBuilder()
         .addTextDisplayComponents(new TextDisplayBuilder().setContent([
             `# Moderator Stats: <@${target.id}>`,
-      //    `**ELO: ** \`\`${elo}\`\``,
+            `**ELO: ** \`\`${elo}\`\``,
             `**Warnings: **\`\`${warns}\`\``,
             `**Drowns: **\`\`${drowns}\`\``,
             `**Bans: **\`\`${bans}\`\``

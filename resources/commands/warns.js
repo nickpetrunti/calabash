@@ -43,8 +43,6 @@ async function execute(interaction) {
         .setColor(0xA7DB7D)
         .setTitle(`Warnings: ${target.tag} (${target.id})`)
 
-    let description = "";
-
     for await (const warn of warnings) {
         const timestamp = new Date(warn.timestamp * 1000);
 

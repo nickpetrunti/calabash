@@ -9,6 +9,7 @@ import database from "../modules/database.js";
 import config from "../../config.json" with {type: "json"};
 import {schedule} from "../modules/schedule.js";
 import chalk from "chalk";
+import {update} from "../modules/elo.js";
 const inDev = false
 const commandType = "moderation";
 
@@ -57,10 +58,15 @@ async function execute(interaction) {
     let time = 0
     if(duration.endsWith("m")) {
         time = parseInt(duration.split("m")[0])*60
+        if (duration.split("m")[0] < 5) {
+            await update(interaction.member.user, -20)
+        }
     } else if(duration.endsWith("h")) {
         time = parseInt(duration.split("h")[0])*60*60
+        await update(interaction.member.user, 5)
     } else if (duration.endsWith("d")) {
         time = parseInt(duration.split("d")[0])*60*60*24
+        await update(interaction.member.user, 5)
     } else {
         await interaction.reply({content: `Invalid time specified. (Use only **m/h/d** following the duration.)`, flags:[MessageFlags.Ephemeral]})
         return

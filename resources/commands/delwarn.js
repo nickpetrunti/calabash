@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags, EmbedBuilder, bold } from "discord.js";
 import database from "../modules/database.js";
+import elo from "../modules/elo.js";
 import {ObjectId} from "mongodb";
 import config from "../../config.json" with {type:"json"};
 
@@ -31,6 +32,7 @@ async function execute(interaction) {
     }
 
     await interaction.reply({content: `Successfully purged warning #${warnID}`, flags:[MessageFlags.Ephemeral]})
+
 }
 
 export {data, execute, inDev, commandType}

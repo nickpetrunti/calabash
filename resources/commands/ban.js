@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags, EmbedBuilder, bold } from "discord.js";
 import database from "../modules/database.js";
+import elo, {update} from "../modules/elo.js";
 import config from "../../config.json" with {type:"json"};
 
 const inDev = false
@@ -45,6 +46,8 @@ async function execute(interaction) {
                 moderator: interaction.member.user.id,
                 type: "ban"
         })
+
+        await update(interaction.member.user, 25)
 
         try {
                 await interaction.guild.bans.create(target.id, {reason:reason})
