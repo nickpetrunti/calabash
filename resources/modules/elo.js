@@ -17,7 +17,7 @@ export async function update(user, amount) {
     currentDocument = await eloDB.findOne({user:user.id})
 
     const currentElo = currentDocument.elo
-    await eloDB.updateOne({user: user.id}, {$set: {amount: currentElo+amount}})
+    await eloDB.updateOne({user: user.id}, {$set: {elo: currentElo+amount}})
 
     return currentElo+amount
 }
