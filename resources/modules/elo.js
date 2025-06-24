@@ -27,6 +27,7 @@ export async function update(user, amount) {
 export async function check(user) {
     const eloDB = await database.fetchDatabase("scores")
     const currentDocument = await eloDB.findOne({id:user.id})
+    console.log(currentDocument)
     if(! currentDocument ) {
         await eloDB.insertOne({
             user: user.id,
