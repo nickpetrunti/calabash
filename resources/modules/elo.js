@@ -4,8 +4,8 @@ import * as discord from "discord.js"
 
 async function init(user) {
     const eloDB = await database.fetchDatabase("scores")
-
-   return await eloDB.insertOne({
+    console.log("initing")
+    return await eloDB.insertOne({
         user: user.id,
         elo: 600
     })
@@ -15,7 +15,7 @@ async function init(user) {
 export async function update(user, amount) {
     const eloDB = await database.fetchDatabase("scores")
     const currentDocument = await eloDB.findOne({id:user.id})
-    if(currentDocument === null) { await init(user) }
+    if(currentDocument === null) { await init(user); }
 
     const currentElo =
     await eloDB.updateOne({user: user.id}, {amount: currentElo+amount})
