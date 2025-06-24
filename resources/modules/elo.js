@@ -10,6 +10,8 @@ async function init(user) {
         elo: 600
     })
 
+    console.log("inserted")
+
 }
 
 export async function update(user, amount) {
@@ -31,6 +33,8 @@ export async function check(user) {
     if( currentDocument === null ) {
        await init(user)
     }
+
+    console.log("running it up")
 
     const elo = await eloDB.findOne({id:user.id})
     console.log(elo)
