@@ -20,7 +20,7 @@ async function execute(interaction) {
     const warningDB = await database.fetchDatabase("warnings");
     const warnID = interaction.options.getString("warn-id");
 
-    const res1 = await warningDB.deleteOne({_id: new ObjectId(warnID)});
+    const res1 = await warningDB.deleteOne({_id: new ObjectId(parseInt(warnID))});
 
     const res = await warningDB.deleteOne({id: parseInt(warnID)});
 
