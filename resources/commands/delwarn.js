@@ -26,7 +26,7 @@ async function execute(interaction) {
     } else {
         res = await warningDB.deleteOne({id: parseInt(warnID)});
     }
-
+    console.log(res.deletedCount)
     if (res.deletedCount > 0) {
         await interaction.reply({content: `Successfully purged warning #${warnID}`, flags:[MessageFlags.Ephemeral]})
     } else {
