@@ -20,17 +20,21 @@ async function execute(interaction) {
     const warningDB = await database.fetchDatabase("warnings");
     const warnID = interaction.options.getString("warn-id");
 
-    const res1 = await warningDB.deleteOne({_id: new ObjectId(parseInt(warnID))});
-
-    const res = await warningDB.deleteOne({id: parseInt(warnID)});
-
-    if (res.deletedCount > 0 || res1.deletedCount > 0) {
-
+    let res;
+    if(warnID.length === 24) {
+        res = await warningDB.deleteOne({_id: new ObjectId(warnID)});
     } else {
-        await interaction.reply({content:"Unable to find a warning matching that ID.", flags:[MessageFlags.Ephemeral]})
+        res =  warningDB.deleteOne({id: parseInt(warnID)});
     }
 
-    await interaction.reply({content: `Successfully purged warning #${warnID}`, flags:[MessageFlags.Ephemeral]})
+    if (res.deletedCount > 0) {
+        await interaction.reply({content: `Successfully purged warning #${warnID}`, flags:[MessageFlags.Ephemeral]})
+    } else {
+        await interaction.reply({content:"Unable to find a warning matching that ID.", flags:[MessageFlags.Ephemeral]})
+
+    }
+
+
 
 }
 
