@@ -72,8 +72,8 @@ async function execute(interaction) {
         } else if(warn.type === "drown") {
 
             embed.addFields({
-                name: `[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}\n-# ${warn._id}`,
-                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
+                name: `[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
+                value: `-# ${warn._id}\nModerator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
                 inline: true
             })
 
