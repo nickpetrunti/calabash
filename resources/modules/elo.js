@@ -29,7 +29,7 @@ export async function check(user) {
     const currentDocument = await eloDB.findOne({id:user.id})
     console.log(currentDocument)
     if(! currentDocument ) {
-       init(user)
+       await init(user)
     }
 
     const elo = await eloDB.findOne({id:user.id})
