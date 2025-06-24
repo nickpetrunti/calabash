@@ -24,7 +24,7 @@ async function execute(interaction) {
     if(warnID.length === 24) {
         res = await warningDB.deleteOne({_id: new ObjectId(warnID)});
     } else {
-        res =  warningDB.deleteOne({id: parseInt(warnID)});
+        res = await warningDB.deleteOne({id: parseInt(warnID)});
     }
 
     if (res.deletedCount > 0) {
