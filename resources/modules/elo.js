@@ -5,7 +5,7 @@ import * as discord from "discord.js"
 async function init(user) {
     const eloDB = await database.fetchDatabase("scores")
     console.log("initing")
-    return await eloDB.insertOne({
+    await eloDB.insertOne({
         user: user.id,
         elo: 600
     })
