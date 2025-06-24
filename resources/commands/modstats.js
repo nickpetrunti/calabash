@@ -10,7 +10,7 @@ import {
     bold,
     hyperlink, ContainerBuilder, SectionBuilder, TextDisplayBuilder, ThumbnailBuilder, SeparatorSpacingSize
 } from "discord.js";
-import check from "../modules/elo.js"
+import {check} from "../modules/elo.js"
 import database from "../modules/database.js";
 import config from "../../config.json" with {type: "json"};
 const inDev = false

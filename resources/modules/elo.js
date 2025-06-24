@@ -12,7 +12,7 @@ function init(user) {
 
 }
 
-async function update(user, amount) {
+export async function update(user, amount) {
     const eloDB = await database.fetchDatabase("scores")
     const currentDocument = await eloDB.findOne({id:user.id})
     if(!currentDocument) { init(user) }
@@ -24,7 +24,7 @@ async function update(user, amount) {
 
 }
 
-async function check(user) {
+export async function check(user) {
     const eloDB = await database.fetchDatabase("scores")
     const currentDocument = await eloDB.findOne({id:user.id})
     if(! currentDocument ) {
@@ -37,5 +37,3 @@ async function check(user) {
     return await eloDB.findOne({id:user.id}).elo
 
 }
-
-export default {update,check}
