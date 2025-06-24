@@ -45,7 +45,7 @@ async function execute(interaction) {
         else if (event.type === "ban") {bans++}
     }
 
-    const elo = check(target)
+    const elo = await check(target)
 
     const container = new ContainerBuilder()
     container.setAccentColor(0x40C79E)
