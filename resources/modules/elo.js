@@ -36,6 +36,7 @@ export async function check(user) {
     }
 
     const elo = await eloDB.findOne({id:user.id})
+    console.log(elo)
 
     return elo.elo
 
