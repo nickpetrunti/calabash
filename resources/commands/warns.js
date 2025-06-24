@@ -73,7 +73,7 @@ async function execute(interaction) {
 
             embed.addFields({
                 name: `[DROWN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
-                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}`,
+                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}\n-# ${warn._id["$oid"]}`,
                 inline: true
             })
 

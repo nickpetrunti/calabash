@@ -44,14 +44,14 @@ async function execute(interaction) {
         else if (event.type === "ban") {bans++}
     }
 
-    const elo = ((warns*10) + (bans*25) + (drowns*5)) + 500
+    //   const elo = ((warns*10) + (bans*25) + (drowns*5)) + 500
 
     const container = new ContainerBuilder()
     container.setAccentColor(0x40C79E)
     container.addSectionComponents(new SectionBuilder()
         .addTextDisplayComponents(new TextDisplayBuilder().setContent([
             `# Moderator Stats: <@${target.id}>`,
-            `**ELO: ** \`\`${elo}\`\``,
+      //    `**ELO: ** \`\`${elo}\`\``,
             `**Warnings: **\`\`${warns}\`\``,
             `**Drowns: **\`\`${drowns}\`\``,
             `**Bans: **\`\`${bans}\`\``
