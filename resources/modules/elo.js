@@ -38,4 +38,4 @@ async function check(user) {
 
 }
 
-export {update,check}
+export default {update,check}
