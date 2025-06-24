@@ -27,7 +27,7 @@ async function execute(interaction) {
     let res;
     if(warnID.length === 24) {
         const warning = await warningDB.findOne({_id: new ObjectId(warnID)})
-        await update({id: warning.moderator}, -15)
+        await update({id: warning.moderator}, -5)
         res = await warningDB.deleteOne({_id: new ObjectId(warnID)});
     } else {
         const warning = await warningDB.findOne({id: parseInt(warnID)})
