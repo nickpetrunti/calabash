@@ -2,12 +2,12 @@ import database from "./database.js";
 import * as discord from "discord.js"
 
 
-function init(user) {
-    const eloDB = database.fetchDatabase("scores").then(function() {
-        eloDB.insertOne({
-            user: user.id,
-            elo: 600
-        })
+async function init(user) {
+    const eloDB = await database.fetchDatabase("scores")
+
+   return await eloDB.insertOne({
+        user: user.id,
+        elo: 600
     })
 
 }
@@ -29,10 +29,7 @@ export async function check(user) {
     const currentDocument = await eloDB.findOne({id:user.id})
     console.log(currentDocument)
     if(! currentDocument ) {
-        await eloDB.insertOne({
-            user: user.id,
-            elo: 600
-        })
+       init(user)
     }
 
     const elo = await eloDB.findOne({id:user.id})
