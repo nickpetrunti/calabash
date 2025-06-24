@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags, EmbedBuilder, bold } from "discord.js";
 import database from "../modules/database.js";
-import elo, {update} from "../modules/elo.js";
+import update from "../modules/elo.js";
 import config from "../../config.json" with {type:"json"};
 
 const inDev = false
