@@ -3,7 +3,7 @@ import database from "../modules/database.js";
 import config from "../../config.json" with {type:"json"};
 import chalk from "chalk";
 import crypto from "crypto";
-import update from "../modules/elo.js";
+import {update} from "../modules/elo.js";
 
 const inDev = false
 const commandType = "moderation";
