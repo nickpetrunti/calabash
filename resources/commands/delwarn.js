@@ -20,12 +20,15 @@ async function execute(interaction) {
     const warningDB = await database.fetchDatabase("warnings");
     const warnID = interaction.options.getString("warn-id");
 
-    console.log(await warningDB.findOne({_id: new ObjectId(warnID)}));
-    const res1 = await warningDB.deleteOne({_id: warnID});
+    const res1 = await warningDB.deleteOne({_id: new ObjectId(warnID)});
 
     const res = await warningDB.deleteOne({id: parseInt(warnID)});
 
-    console.log(res,res1)
+    if (res.deletedCount > 0 || res1.deletedCount > 0) {
+
+    } else {
+        await interaction.reply({content:"Unable to find a warning matching that ID.", flags:[MessageFlags.Ephemeral]})
+    }
 
     await interaction.reply({content: `Successfully purged warning #${warnID}`, flags:[MessageFlags.Ephemeral]})
 }
