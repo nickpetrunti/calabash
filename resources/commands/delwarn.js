@@ -19,7 +19,9 @@ async function execute(interaction) {
     const warningDB = await database.fetchDatabase("warnings");
     const warnID = interaction.options.getString("warn-id");
 
+    console.log(await warningDB.findOne({_id: warnID}))
     await warningDB.deleteOne({_id: warnID});
+
     await warningDB.deleteOne({id: parseInt(warnID)});
 
     await interaction.reply({content: `Successfully purged warning #${warnID}`, flags:[MessageFlags.Ephemeral]})
