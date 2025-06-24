@@ -15,7 +15,7 @@ async function init(user) {
 export async function update(user, amount) {
     const eloDB = await database.fetchDatabase("scores")
     const currentDocument = await eloDB.findOne({id:user.id})
-    if(!currentDocument) { init(user) }
+    if(currentDocument === null) { await init(user) }
 
     const currentElo =
     await eloDB.updateOne({user: user.id}, {amount: currentElo+amount})
@@ -28,7 +28,7 @@ export async function check(user) {
     const eloDB = await database.fetchDatabase("scores")
     const currentDocument = await eloDB.findOne({id:user.id})
     console.log(currentDocument)
-    if(! currentDocument ) {
+    if( currentDocument === null ) {
        await init(user)
     }
 
