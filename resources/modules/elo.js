@@ -34,6 +34,8 @@ export async function check(user) {
         })
     }
 
-    return await eloDB.findOne({id:user.id}).elo
+    const elo = await eloDB.findOne({id:user.id})
+
+    return elo.elo
 
 }
