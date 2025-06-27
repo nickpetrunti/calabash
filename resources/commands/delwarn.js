@@ -21,9 +21,6 @@ async function execute(interaction) {
     const warningDB = await database.fetchDatabase("warnings");
     const warnID = interaction.options.getString("warn-id");
 
-
-
-
     let res;
     if(warnID.length === 24) {
         const warning = await warningDB.findOne({_id: new ObjectId(warnID)})
