@@ -20,7 +20,6 @@ container.addSectionComponents(new SectionBuilder()
         '## Deepwoken Info: Staff procedures',
         'Apologies for the delays on the full **Calabash** release.',
         'If any issues arise, please DM or ping <@288584131644751874>',
-        '@everyone'
     ].join("\n")))
     .setThumbnailAccessory(new ThumbnailBuilder({
         description: "Calabash",
