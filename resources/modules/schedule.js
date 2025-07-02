@@ -9,7 +9,6 @@ export async function run(client) {
 
 
     setInterval(async() => {
-        console.log('intervaling')
         const list = schedules.find({action:"remove-role"})
         for await (const schedule of list) {
             if((Date.now() / 1000) >= schedule.trigger) {
