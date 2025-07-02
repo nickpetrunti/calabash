@@ -12,10 +12,7 @@ export async function run(client) {
         console.log('intervaling')
         const list = schedules.find({action:"remove-role"})
         for await (const schedule of list) {
-            console.log(schedule)
-            console.log(`Schedule Difference: ${Math.floor(Date.now() / 1000) - schedule.trigger }`)
             if((Date.now() / 1000) >= schedule.trigger) {
-                console.log(`Schedule Satisfied: ${schedule.id}`)
                 const guild = client.guilds.cache.get(config.guildID)
                 const member = guild.members.cache.get(schedule.target)
                 try {
