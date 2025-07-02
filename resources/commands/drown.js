@@ -78,6 +78,7 @@ async function execute(interaction) {
          await warningsDB.insertOne({
              target: target.id,
              explanation: reason,
+             duration: duration,
              timestamp: Math.floor(Date.now() / 1000),
              moderator: interaction.member.user.id,
              type: "drown"
