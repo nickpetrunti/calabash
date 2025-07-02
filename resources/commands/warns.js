@@ -43,6 +43,7 @@ async function execute(interaction) {
         .setColor(0xA7DB7D)
         .setTitle(`Warnings: ${target.tag} (${target.id})`)
 
+    console.log(warnings)
     if (warnings.length < 1) {
 
         await interaction.reply({content: `No warnings to display for <@${target.id}>`, flags:[MessageFlags.Ephemeral]})
