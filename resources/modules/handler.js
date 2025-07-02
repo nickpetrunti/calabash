@@ -18,7 +18,6 @@ function Initialize() {
                 if(command.data.name === "embed") {
                     let choices = []
                     for (const file of fs.readdirSync("./resources/embeds/")) {
-                        console.log(file)
                         const data = await import(`../embeds/${file}`)
 
                         choices.push({name: data.embedName, value: data.embedName})

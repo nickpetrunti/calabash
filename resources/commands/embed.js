@@ -20,6 +20,8 @@ async function execute(interaction) {
 
     const embedData = await import(`../embeds/${interaction.options.getString("embed-name")}.js`)
     await interaction.channel.send({components: [embedData.container], flags: MessageFlags.IsComponentsV2})
+
+    await interaction.reply({content: "Successfully posted embed.",flags:[MessageFlags.Ephemeral]})
 }
 
 export {data, execute, inDev, disabled}
