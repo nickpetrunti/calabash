@@ -85,7 +85,7 @@ async function execute(interaction) {
          })
          await schedule({
              target: target.id,
-             trigger: (Date.now() / 1000) + time,
+             trigger: (Math.floor(Date.now() / 1000)) + time,
              action: "remove-role",
              role: "drowned"
          })
