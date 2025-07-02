@@ -44,7 +44,7 @@ async function execute(interaction) {
         .setTitle(`Warnings: ${target.tag} (${target.id})`)
 
     if (warnings.map.length < 1) {
-        console.log(warnings.map.length)
+        console.log(warnings.length)
         await interaction.reply({content: `No warnings to display for <@${target.id}>`, flags:[MessageFlags.Ephemeral]})
         return
     }
