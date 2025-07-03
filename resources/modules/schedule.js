@@ -20,7 +20,7 @@ export async function run(client) {
 
                     const logEmbed = new EmbedBuilder()
                         .setColor(0x66FFA6)
-                        .setTitle(`Undrown [${target.id}]`)
+                        .setTitle(`Undrown [${member.id}]`)
                         .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: Automated Undrown\n${bold("Duration")}: ${duration}`)
                         .setFooter({text: `${client.user.tag}`, iconURL: client.user.avatarURL()})
                         .setTimestamp()

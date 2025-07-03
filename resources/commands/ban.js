@@ -20,6 +20,11 @@ const data = new SlashCommandBuilder()
             .setName("reason")
             .setDescription("Reason the user is being banned")
             .setRequired(true))
+    .addBooleanOption(option =>
+        option
+            .setName("anonymous")
+            .setDescription("Inform the user of the moderator?")
+            .setRequired(false))
 
 async function execute(interaction) {
         const target = interaction.options.getUser("user")
@@ -38,6 +43,11 @@ async function execute(interaction) {
             .setTitle(`You have been banned from Deepwoken Info`)
             .setDescription(`${bold("Reason: ")}${reason}`)
             .setTimestamp()
+
+        const anonymous = interaction.options.getBoolean("anonymous")
+        if (anonymous) {
+            notifEmbed.setDescription(`${bold("Reason: ")}${reason}\n${bold("Moderator: ")}<@${interaction.member.user.id}>`)
+        }
 
         await warningsDB.insertOne({
                 target: target.id,
