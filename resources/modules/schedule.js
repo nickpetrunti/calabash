@@ -22,7 +22,7 @@ export async function run(client) {
                         .setColor(0x66FFA6)
                         .setTitle(`Undrown [${target.id}]`)
                         .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: Automated Undrown\n${bold("Duration")}: ${duration}`)
-                        .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
+                        .setFooter({text: `${client.user.tag}`, iconURL: client.user.avatarURL()})
                         .setTimestamp()
                     await guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]});
                 } catch(e) {await schedules.deleteOne({id: schedule.id}); console.log("Unable to remove Drowned Role")}
