@@ -22,7 +22,7 @@ const data = new SlashCommandBuilder()
             .setRequired(true))
     .addBooleanOption(option =>
         option
-            .setName("anonymous")
+            .setName("inform")
             .setDescription("Inform the user of the moderator?")
             .setRequired(false))
 
@@ -44,7 +44,7 @@ async function execute(interaction) {
             .setDescription(`${bold("Reason: ")}${reason}`)
             .setTimestamp()
 
-        const anonymous = interaction.options.getBoolean("anonymous")
+        const anonymous = interaction.options.getBoolean("inform")
         if (anonymous) {
             notifEmbed.setDescription(`${bold("Reason: ")}${reason}\n${bold("Moderator: ")}<@${interaction.member.user.id}>`)
         }
