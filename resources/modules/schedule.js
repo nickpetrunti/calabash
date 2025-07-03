@@ -2,6 +2,7 @@ import database from "./database.js";
 import config from "../../config.json" with {type: 'json'};
 import "discord.js"
 import {v4 as uuid} from "uuid";
+import {bold, EmbedBuilder} from "discord.js";
 
 const schedules = await database.fetchDatabase("scheduled")
 
@@ -16,6 +17,14 @@ export async function run(client) {
                 const member = guild.members.cache.get(schedule.target)
                 try {
                     await member.roles.remove(guild.roles.cache.find(role => role.name === schedule.role))
+
+                    const logEmbed = new EmbedBuilder()
+                        .setColor(0x66FFA6)
+                        .setTitle(`Undrown [${target.id}]`)
+                        .setDescription(`${bold("Offender")}: <@${target.id}>\n${bold("Reason")}: Automated Undrown\n${bold("Duration")}: ${duration}`)
+                        .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
+                        .setTimestamp()
+                    await guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]});
                 } catch(e) {await schedules.deleteOne({id: schedule.id}); console.log("Unable to remove Drowned Role")}
                 await schedules.deleteOne({id: schedule.id})
                     .catch(e=>{console.warn(e)})
