@@ -25,7 +25,7 @@ export async function run(client) {
                         .setFooter({text: `${client.user.tag}`, iconURL: client.user.avatarURL()})
                         .setTimestamp()
                     await guild.channels.cache.get(config.warnLogsID).send({embeds:[logEmbed]});
-                } catch(e) {await schedules.deleteOne({id: schedule.id}); console.log("Unable to remove Drowned Role")}
+                } catch(e) {await schedules.deleteOne({id: schedule.id}); console.log("Unable to remove Drowned Role"); console.warn(e)}
                 await schedules.deleteOne({id: schedule.id})
                     .catch(e=>{console.warn(e)})
             }
