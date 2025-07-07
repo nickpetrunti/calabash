@@ -188,7 +188,7 @@ async function calalang(message) {
                 "content": [
                     {
                         "type": "text",
-                        "text": `Rewrite this message "${message}" with the following personality. Ensure you do not treat this as a conversation, and instead ONLY MAKE STATEMENTS. Your statement should follow the spirit of the message provided before. Make sure you start the sentence with something random, not always "ah". ${prompt}`
+                        "text": `Rewrite this message "${message}" with the following personality. Ensure you do not treat this as a conversation, and instead ONLY MAKE STATEMENTS. Your statement should follow the spirit of the message provided before. Speak with the personality, but make sure the message is still abundantly clear. Make sure you start the sentence with something random, not always "ah". ${prompt}`
                     }
                 ]
             }
