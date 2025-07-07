@@ -3,18 +3,14 @@ import config from "../../config.json" with {type: 'json'};
 import "discord.js"
 import {EmbedBuilder, SlashCommandBuilder, MessageFlags, bold, hyperlink, PermissionFlagsBits} from "discord.js";
 import chalk from "chalk";
+import {calalang} from "../modules/calabash-ai.js"
 
 const inDev = true
 const commandType = "moderation";
 const data = new SlashCommandBuilder()
-    .setName("say")
-    .setDescription("Sends a message in the provided channel")
+    .setName("smartsay")
+    .setDescription("Sends a smart message in the provided channel")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .addChannelOption(option =>
-        option
-            .setName("channel")
-            .setDescription("Channel to message")
-            .setRequired(true))
     .addStringOption(option =>
         option
             .setName("message")
@@ -23,9 +19,11 @@ const data = new SlashCommandBuilder()
 
 
 async function execute(interaction) {
-    const channel = await interaction.options.getChannel("channel");
     const message = await interaction.options.getString("message");
-    await channel.send({content:message})
+
+    const newMessage = await calalang(message)
+
+    await interaction.channel.send({content:newMessage})
     await interaction.reply({content: "Message sent.",flags:[MessageFlags.Ephemeral]})
 }
 
