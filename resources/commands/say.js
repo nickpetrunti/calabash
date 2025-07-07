@@ -26,6 +26,7 @@ async function execute(interaction) {
     const channel = await interaction.options.getChannel("channel");
     const message = await interaction.options.getString("message");
     await channel.send({content:message})
+    await interaction.reply({content: "Message sent.",flags:[MessageFlags.Ephemeral]})
 }
 
 export {data,execute}
