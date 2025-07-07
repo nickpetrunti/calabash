@@ -39,6 +39,18 @@ async function execute(interaction) {
         .setTimestamp()
 
     try {
+        const notifEmbed = new EmbedBuilder()
+            .setColor(0xFF3333)
+            .setTitle(`You have been banned from Deepwoken Info`)
+            .setDescription(`${bold("Reason: ")}${reason}`)
+            .setTimestamp()
+
+        try {
+            target.send({embeds: [notifEmbed]})
+        } catch(e) {
+            console.warn("Unable to notify - kick")
+        }
+
         await target.kick(reason)
 
         await warningsDB.insertOne({
