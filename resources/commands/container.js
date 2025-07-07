@@ -59,14 +59,7 @@ async function execute(interaction) {
         const message = await interaction.channel.send({components: [container], flags: MessageFlags.IsComponentsV2})
         await interaction.reply({content: "Successfully posted container.", flags:[MessageFlags.Ephemeral]})
 
-        const logEmbed = new EmbedBuilder()
-            .setColor(0x4592FF)
-            .setTitle(`Container Posted`)
-            .setDescription(`**Message: ** ${hyperlink("Click Here", message.url)}`)
-            .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
-            .setTimestamp()
 
-        interaction.guild.channels.cache.get(config.warnLogsID).send({embeds: [logEmbed]})
 
 
     } catch(e) {
