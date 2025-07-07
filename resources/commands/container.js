@@ -11,7 +11,7 @@ import {
 } from "discord.js";
 import {container} from "../embeds/calabash-release.js";
 
-const inDev = true;
+const inDev = false;
 const commandType = "moderation"
 const data = new SlashCommandBuilder()
     .setName("container")
