@@ -59,7 +59,6 @@ async function execute(interaction) {
         await interaction.channel.send({components: [container], flags: MessageFlags.IsComponentsV2})
         await interaction.reply({content: "Successfully posted container.", flags:[MessageFlags.Ephemeral]})
     } catch(e) {
-        console.warn(e)
         await interaction.reply({content: "There was an error while parsing the JSON data.", flags:[MessageFlags.Ephemeral]})
     }
 
