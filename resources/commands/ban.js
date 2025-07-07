@@ -2,6 +2,7 @@ import { SlashCommandBuilder, TextInputStyle, PermissionFlagsBits, MessageFlags,
 import database from "../modules/database.js";
 import {update} from "../modules/elo.js";
 import config from "../../config.json" with {type:"json"};
+import chalk from "chalk";
 
 const inDev = false
 
@@ -56,6 +57,8 @@ async function execute(interaction) {
                 moderator: interaction.member.user.id,
                 type: "ban"
         })
+
+        console.log(chalk.rgb(255, 56, 56).bold(`BAN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
 
         await update(interaction.member.user, 25)
 

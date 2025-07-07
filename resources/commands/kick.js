@@ -2,6 +2,7 @@ import database from "../modules/database.js";
 import config from "../../config.json" with {type: 'json'};
 import "discord.js"
 import {EmbedBuilder, SlashCommandBuilder, MessageFlags, bold, hyperlink} from "discord.js";
+import chalk from "chalk";
 
 const inDev = false
 const commandType = "moderation";
@@ -52,6 +53,8 @@ async function execute(interaction) {
         }
 
         await target.kick(reason)
+
+        console.log(chalk.rgb(255, 83, 31).bold(`KICK: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
 
         await warningsDB.insertOne({
             target: target.id,
