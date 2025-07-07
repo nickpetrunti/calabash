@@ -31,7 +31,8 @@ async function execute(interaction) {
 
     try {
         const container = new ContainerBuilder()
-        data.forEach(sectionData => {
+
+        for (const sectionData of data) {
             if (sectionData.type === "text") {
                 if(!sectionData.image) {
                     container.addTextDisplayComponents(new TextDisplayBuilder().setContent(sectionData.content.join("\n")))
@@ -51,7 +52,8 @@ async function execute(interaction) {
             } else if(sectionData.type === "separator-small") {
                 container.addSeparatorComponents(separator => separator.setSpacing(SeparatorSpacingSize.Small));
             }
-        })
+        }
+
         await interaction.channel.send({components: [container], flags: MessageFlags.IsComponentsV2})
     } catch(e) {
         console.warn(e)
