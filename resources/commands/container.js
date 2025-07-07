@@ -23,7 +23,7 @@ const data = new SlashCommandBuilder()
             .setRequired(true))
 
 async function execute(interaction) {
-    const dataURL = interaction.options.getString("url");
+    const dataURL = interaction.options.getString("json");
     const dataFetch = await fetch(dataURL);
     const dataBuffer = await dataFetch.buffer();
     const dataString = dataBuffer.toString();
