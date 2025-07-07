@@ -33,6 +33,13 @@ async function execute(interaction) {
             }
         }
 
+        if (command.commandType && command.commandType === "info") {
+            if(!interaction.member.roles.cache.get(config.infoRoleID) && !interaction.member.roles.cache.get(config.moderatorRoleID) && !interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+                await interaction.reply({content: "You lack the permissions to execute this command.", flags: MessageFlags.Ephemeral})
+                return
+            }
+        }
+
 
         try {
             await command.execute(interaction);

@@ -7,12 +7,13 @@ import {
     SectionBuilder,
     SeparatorSpacingSize,
     MessageFlags,
-    ThumbnailBuilder
+    ThumbnailBuilder, EmbedBuilder, bold, hyperlink
 } from "discord.js";
 import {container} from "../embeds/calabash-release.js";
+import config from "../../config.json";
 
 const inDev = false;
-const commandType = "moderation"
+const commandType = "info"
 const data = new SlashCommandBuilder()
     .setName("container")
     .setDescription("Dynamically generates an embed container based on provided JSON data")
@@ -23,13 +24,12 @@ const data = new SlashCommandBuilder()
             .setRequired(true))
 
 async function execute(interaction) {
-    const dataURL = interaction.options.getString("json");
-    const dataFetch = await fetch(dataURL);
-    const dataBuffer = await dataFetch.buffer();
-    const dataString = dataBuffer.toString();
-    const data = JSONbig.parse(dataString)
-
     try {
+        const dataURL = interaction.options.getString("json");
+        const dataFetch = await fetch(dataURL);
+        const dataBuffer = await dataFetch.buffer();
+        const dataString = dataBuffer.toString();
+        const data = JSONbig.parse(dataString)
         const container = new ContainerBuilder()
 
 
@@ -56,8 +56,19 @@ async function execute(interaction) {
             }
         })
 
-        await interaction.channel.send({components: [container], flags: MessageFlags.IsComponentsV2})
+        const message = await interaction.channel.send({components: [container], flags: MessageFlags.IsComponentsV2})
         await interaction.reply({content: "Successfully posted container.", flags:[MessageFlags.Ephemeral]})
+
+        const logEmbed = new EmbedBuilder()
+            .setColor(0x4592FF)
+            .setTitle(`Container Posted`)
+            .setDescription(`**Message: ** ${hyperlink("Click Here", message.url)}`)
+            .setFooter({text: `${interaction.member.user.tag}`, iconURL: interaction.member.user.avatarURL()})
+            .setTimestamp()
+
+        interaction.guild.channels.cache.get(config.warnLogsID).send({embeds: [logEmbed]})
+
+
     } catch(e) {
         await interaction.reply({content: "There was an error while parsing the JSON data.", flags:[MessageFlags.Ephemeral]})
     }
