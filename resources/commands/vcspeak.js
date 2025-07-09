@@ -11,7 +11,9 @@ import {
     VoiceConnectionStatus,
     AudioPlayerStatus,
     joinVoiceChannel,
-    getVoiceConnection, createAudioResource, generateDependencyReport
+    getVoiceConnection,
+    createAudioResource,
+    generateDependencyReport
 } from "@discordjs/voice"
 import fs from "fs";
 import path from "path";
@@ -22,43 +24,38 @@ const commandType = "dev";
 const disabled = false;
 
 let data = new SlashCommandBuilder()
-    .setName("vct")
-    .setDescription("gurt")
+    .setName("vcspeak")
+    .setDescription("Provide calabash wisdom in a voice channel")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option =>
         option
-            .setName("file")
-            .setDescription("Mp3 file name")
+            .setName("message")
+            .setDescription("The message to speak in calalang")
             .setRequired(true))
 
 async function execute(interaction) {
     const sound = interaction.options.getString("file");
 
+    if(!interaction.member.voice) {
+        await interaction.reply({content:"You must be in a voice channel to use this command.",flags:[MessageFlags.Ephemeral]})
+        return;
+    }
+
     const player = createAudioPlayer();
-    player.on(AudioPlayerStatus.Playing, () => {
-    });
-    player.on('error', error => {
-        console.warn(`Error: ${error.message} with resource`);
-    });
-
-
-
-  //  const resource = createAudioResource(`./resources/mp3/${sound}.mp3`)
     const ttsName = await tts(sound)
     const resource = createAudioResource(`./resources/audio/${ttsName}.mp3`)
     player.play(resource)
 
-    let connection = getVoiceConnection(interaction.guild.id)
-    if(!connection) {
-        connection = joinVoiceChannel({
-            channelId: "914336178629652480",
-            guildId: "883838743172218891",
-            adapterCreator: interaction.guild.voiceAdapterCreator,
-            selfDeaf: false
-        })
-    } else {console.log("connection found")}
+    const connection = joinVoiceChannel({
+        channelId: interaction.member.voice.channel.id,
+        guildId: interaction.guild.id,
+        adapterCreator: interaction.guild.voiceAdapterCreator,
+        selfDeaf: false
+    })
 
     connection.subscribe(player);
+
+    setTimeout(async () => {connection.destroy()}, 10_000)
 
 }
 
