@@ -36,10 +36,9 @@ async function execute(interaction) {
 
     const player = createAudioPlayer();
     player.on(AudioPlayerStatus.Playing, () => {
-        console.log('The audio player has started playing!');
     });
     player.on('error', error => {
-        console.error(`Error: ${error.message} with resource`);
+        console.warn(`Error: ${error.message} with resource`);
     });
 
 
@@ -51,7 +50,6 @@ async function execute(interaction) {
 
     let connection = getVoiceConnection(interaction.guild.id)
     if(!connection) {
-        console.log("no connection found")
         connection = joinVoiceChannel({
             channelId: "914336178629652480",
             guildId: "883838743172218891",
