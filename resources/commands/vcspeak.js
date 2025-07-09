@@ -34,12 +34,14 @@ let data = new SlashCommandBuilder()
             .setRequired(true))
 
 async function execute(interaction) {
-    const sound = interaction.options.getString("file");
+    const sound = interaction.options.getString("message");
 
     if(!interaction.member.voice) {
         await interaction.reply({content:"You must be in a voice channel to use this command.",flags:[MessageFlags.Ephemeral]})
         return;
     }
+
+    await interaction.reply({content:"Successfully played TTS",flags:[MessageFlags.Ephemeral]})
 
     const player = createAudioPlayer();
     const ttsName = await tts(sound)
@@ -55,7 +57,12 @@ async function execute(interaction) {
 
     connection.subscribe(player);
 
-    setTimeout(async () => {connection.destroy()}, 10_000)
+    player.on("idle", () => {
+        connection.destroy()
+        fs.unlinkSync(`./resources/audio/${ttsName}.mp3`)
+    });
+
+    //setTimeout(async () => {connection.destroy()}, 10_000)
 
 }
 
