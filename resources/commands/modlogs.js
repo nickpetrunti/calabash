@@ -85,7 +85,7 @@ async function execute(interaction) {
 
             embed.addFields({
                 name: `[BAN]: ${timestamp.getMonth()+1}-${timestamp.getDate()}-${timestamp.getFullYear()}`,
-                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}\nEvidence: ${hyperlink("Click Here", warn.evidence)} `,
+                value: `Moderator: <@${warn.moderator}>\nReason: ${warn.explanation}\nEvidence: ${(warn.evidence !== "N/A" && hyperlink("Click Here", warn.evidence) || "N/A")} `,
                 inline: true
             })
 
