@@ -21,15 +21,22 @@ const data = new SlashCommandBuilder()
             .setName("reason")
             .setDescription("Reason the user is being banned")
             .setRequired(true))
+    .addStringOption(option =>
+        option
+            .setName("evidence")
+            .setDescription("Ban evidence")
+            .setRequired(false))
     .addBooleanOption(option =>
         option
             .setName("inform")
             .setDescription("Inform the user of the moderator?")
             .setRequired(false))
 
+
 async function execute(interaction) {
         const target = interaction.options.getUser("user")
         const reason = interaction.options.getString("reason");
+        const evidence = interaction.options.getString("evidence");
         const warningsDB = await database.fetchDatabase("warnings")
 
         const logEmbed = new EmbedBuilder()
@@ -55,7 +62,8 @@ async function execute(interaction) {
                 explanation: reason,
                 timestamp: Math.floor(Date.now() / 1000),
                 moderator: interaction.member.user.id,
-                type: "ban"
+                type: "ban",
+                evidence: (evidence && evidence) || "N/A"
         })
 
         console.log(chalk.rgb(255, 56, 56).bold(`BAN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
