@@ -10,7 +10,7 @@ import fs from "node:fs";
 
 const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
 client.commands = new Collection();
-client.version = "1.2.1"
+client.version = "1.3.0"
 
 const commandFiles = fs.readdirSync("./resources/commands/").filter(file => file.endsWith('.js'), {withFileTypes: true});
 const eventFiles = fs.readdirSync("./resources/events/").filter(file => file.endsWith('.js'), {withFileTypes: true});

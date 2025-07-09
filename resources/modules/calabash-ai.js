@@ -210,12 +210,12 @@ async function calalang(message) {
 async function tts(message) {
     const msg = await calalang(message)
     const response = await api.audio.speech.create({
-        model: "tts-1-hd",
+        model: "tts-1",
         voice: "onyx",
         input: msg,
         instructions: "Speak in an elderly, wise tone.",
         response_format: "mp3",
-        speed: 1.0
+        speed: 1.05
     });
 
     const name = uuid()
