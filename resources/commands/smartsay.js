@@ -23,8 +23,9 @@ async function execute(interaction) {
 
     const newMessage = await calalang(message)
 
-    await interaction.channel.send({content:newMessage})
     await interaction.reply({content: "Message sent.",flags:[MessageFlags.Ephemeral]})
+    await interaction.channel.send({content:newMessage})
+
 }
 
 export {data,execute}

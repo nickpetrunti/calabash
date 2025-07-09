@@ -3,6 +3,7 @@ import {AttachmentBuilder,MessageFlags} from "discord.js"
 import config from '../../config.json' with {type: 'json'}
 import fs from "node:fs";
 import path from "path";
+import {v4 as uuid} from "uuid";
 const apiKey = config.OpenAIKey
 const api = new OpenAI({
     apiKey: apiKey
@@ -106,7 +107,6 @@ async function speakabash(message) {
         input: message.content.split("speakabash, ")[1],
         instructions: "Speak in an elderly, wise tone.",
         response_format: "mp3"
-
     });
 
     const buffer = Buffer.from(await response.arrayBuffer());
@@ -117,7 +117,6 @@ async function speakabash(message) {
     await message.reply({files: [file]})
 
 }
-
 async function lookabash(message) {
     const response = await api.chat.completions.create({
         model: "gpt-4o-mini",
@@ -207,4 +206,22 @@ async function calalang(message) {
     return response.choices[0].message.content
 
 }
-export {smartabash,speakabash, lookabash, makeabash, searchabash, calalang}
+
+async function tts(message) {
+    const msg = await calalang(message)
+    const response = await api.audio.speech.create({
+        model: "tts-1-hd",
+        voice: "onyx",
+        input: msg,
+        instructions: "Speak in an elderly, wise tone.",
+        response_format: "mp3",
+        speed: 1.0
+    });
+
+    const name = uuid()
+    const buffer = Buffer.from(await response.arrayBuffer());
+    await fs.promises.writeFile(`./resources/audio/${name}.mp3`, buffer)
+    return name;
+}
+
+export {smartabash,speakabash, lookabash, makeabash, searchabash, calalang, tts}

@@ -8,7 +8,7 @@ import config from './config.json' with {type: 'json'}
 import chalk from "chalk";
 import fs from "node:fs";
 
-const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
+const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
 client.commands = new Collection();
 client.version = "1.2.1"
 
