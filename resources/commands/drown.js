@@ -47,8 +47,6 @@ async function execute(interaction) {
 
      const targetMember = interaction.guild.members.cache.get(target.id);
 
-    console.log(chalk.rgb(97, 255, 139).bold(`DROWN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
-
      if(targetMember.roles.cache.find(role => role.name === "drowned")) {
          await interaction.reply({content: `<@${target.id}> is already drowned.`, flags:[MessageFlags.Ephemeral]})
          return;
@@ -57,14 +55,26 @@ async function execute(interaction) {
      // TIME VALIDATION
     let time = 0
     if(duration.endsWith("m")) {
+        if(duration.split("m")[0] < 0 || duration.split("m")[0] > 365) {
+            await interaction.reply({content: `Drown times must be between 1-365`,flags:[MessageFlags.Ephemeral]})
+            return;
+        }
         time = parseInt(duration.split("m")[0])*60
         if (duration.split("m")[0] < 5) {
             await update(interaction.member.user, -20)
         }
     } else if(duration.endsWith("h")) {
+        if(duration.split("h")[0] < 0 || duration.split("h")[0] > 365) {
+            await interaction.reply({content: `Drown times must be between 1-365`,flags:[MessageFlags.Ephemeral]})
+            return;
+        }
         time = parseInt(duration.split("h")[0])*60*60
         await update(interaction.member.user, 5)
     } else if (duration.endsWith("d")) {
+        if(duration.split("d")[0] < 0 || duration.split("d")[0] > 365) {
+            await interaction.reply({content: `Drown times must be between 1-365`,flags:[MessageFlags.Ephemeral]})
+            return;
+        }
         time = parseInt(duration.split("d")[0])*60*60*24
         await update(interaction.member.user, 5)
     } else {
@@ -74,7 +84,7 @@ async function execute(interaction) {
 
      try {
          const warningsDB = await database.fetchDatabase("warnings")
-
+         console.log(chalk.rgb(97, 255, 139).bold(`DROWN: `)+chalk.underline.green(interaction.member.user.tag)+chalk.bold(" >>> ")+chalk.underline.green(target.tag))
          await warningsDB.insertOne({
              target: target.id,
              explanation: reason,
