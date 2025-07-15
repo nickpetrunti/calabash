@@ -24,13 +24,21 @@ eventFiles.forEach(async(file) => {
    const event = await import(`./resources/events/${file}`);
 
    client.on(event.name, (...args) => {
-      event.execute(...args)
+      try {
+         event.execute(...args)
+      } catch(e) {
+         console.warn(chalk.bold("Error occurred while executing event: ")+chalk.bold.green(`${event.name}`));
+      }
    });
 })
 
 process.stdin.on('data', (data) => {
-   const general = client.guilds.cache.get(config.guildID).channels.cache.find(ch=>ch.id==="1297365478347378769")
-   general.send(data.toString());
+   try {
+      const general = client.guilds.cache.get(config.guildID).channels.cache.find(ch=>ch.id==="1297365478347378769")
+      general.send(data.toString());
+   } catch(e) {
+      console.warn(chalk.bold("Error occurred while harassing general!"))
+   }
 });
 
 startSchedule(client);

@@ -32,7 +32,6 @@ const data = new SlashCommandBuilder()
             .setDescription("The length of the drown")
             .setRequired(true))
 async function execute(interaction) {
-//    if(!interaction.member.roles.cache.has("1011510257232646164") && !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages, true)) return;
 
     const target = interaction.options.getUser("target");
     const reason = interaction.options.getString("reason");
