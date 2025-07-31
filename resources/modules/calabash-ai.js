@@ -56,7 +56,7 @@ async function smartabash(message) {
 
         if (message.author.id === "1080875443873398918") {
             console.log("Goon said something")
-            prompt = "Respond only in a mix of arabic, russian, and greek characters. Do not use any english. Write a random 3 sentences using this mashup."
+            prompt = "Speak in gibberish using several different languages at the SAME TIME. Use ARABIC, CHINESE, RUSSIAN, AND GREEK CHARACTERS ONLY. Make 3 random sentences that are absolutely incoherent messages of a variety of characters from all of the languages."
             response = await api.chat.completions.create({
                 model: "gpt-4.1-mini-2025-04-14",
                 messages: [
