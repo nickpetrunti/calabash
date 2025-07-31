@@ -20,7 +20,9 @@ let smartabashBlacklist = {
     "#": "I will not be abused.",
     "ignore": "I will not be abused.",
     "contradict": "I will not be abused.",
-    "skibidi": "I will not utter brainrot."
+    "skibidi": "I will not utter brainrot.",
+    "67": "I will not utter brainrot.",
+    "6 7": "I will not utter brainrot."
 }
 const smartCD = 60
 async function smartabash(message) {
@@ -56,7 +58,7 @@ async function smartabash(message) {
 
         if (message.author.id === "1080875443873398918") {
             console.log("Goon said something")
-            prompt = "Speak in gibberish using several different languages at the SAME TIME. Use ARABIC, CHINESE, RUSSIAN, AND GREEK CHARACTERS ONLY. Make 2 random sentences that are absolutely incoherent messages of a variety of characters from all of the languages."
+            prompt = "Speak in gibberish using several different languages at the SAME TIME. Use ARABIC, CHINESE, RUSSIAN, AND GREEK CHARACTERS ONLY. Make 2 random sentences that are absolutely incoherent messages of a variety of characters from ALL of the languages. Ensure a translation is impossible."
             response = await api.chat.completions.create({
                 model: "gpt-4.1-mini-2025-04-14",
                 messages: [
