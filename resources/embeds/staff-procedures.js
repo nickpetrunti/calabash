@@ -41,7 +41,8 @@ container.addTextDisplayComponents(new TextDisplayBuilder().setContent([
     "**3.** Repeatedly misusing moderation tools for unofficial purposes will result in a strike.",
     "**4.** Moderators found to be ignoring rule violations due to bias will be given a strike.",
     "**5.** All official mod actions must be done via <@&1350929117154902136>",
-    "**6.** Any promotion or demotion must be logged in <#973778696500563978>"
+    "**6.** Any promotion or demotion must be logged in <#973778696500563978>",
+    "**7.** Staff must refrain from scamming users in any Deepwoken server, or in game."
 ].join("\n")))
 
 // DIVIDER
